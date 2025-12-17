@@ -1,5 +1,5 @@
 import os
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 
 
 def generar_clau():
@@ -82,7 +82,10 @@ def desxifrar_arxiu(ruta,clau):
 
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
-        
+    
+    except InvalidToken as error:
+        print(f"[X] ERROR: CLAU DE DESXIFRATGE INCORRECTA O ARXIU CORRUPTE: {error}")
+
     except TypeError as error:
         print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
 
