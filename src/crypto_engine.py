@@ -37,7 +37,10 @@ def encriptar_arxiu(ruta,clau):
 
         with open(ruta, "wb") as file:
             file.write(text_xifrat)
-            print(f"[✔] ARXIU XIFRAT CORRECTAMENT")
+
+        nou_nom = ruta + ".locked"
+        os.rename(ruta, nou_nom)
+        print(f"[✔] ARXIU XIFRAT CORRECTAMENT: {nou_nom}")
 
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
