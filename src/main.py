@@ -1,5 +1,6 @@
 import file_manager                 
-#import crypto_engine             <---  FALTA POSAR
+import crypto_engine
+
 
 
 def mostrar_menu():                                
