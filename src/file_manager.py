@@ -16,3 +16,14 @@ def llistar_fitxers(ruta: str):
 
 print(llistar_fitxers("ruta_que_no_existeix"))        #Aquesta linea serveix de prova per a veure que el programa funciona
 
+
+def registrar_log(missatge: str):
+    carpeta_logs = "logs"
+    ruta_completa = os.path.join(carpeta_logs, "operacions.txt")
+
+    if not os.path.exists(carpeta_logs):
+        os.makedirs(carpeta_logs)                           #Utilitzem .makedirs == Make directories
+
+        fitxer = open(ruta_completa, "a", encoding="utf-8")
+        fitxer.write(missatge + "\n")
+        fitxer.close()
