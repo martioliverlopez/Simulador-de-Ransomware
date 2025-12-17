@@ -2,10 +2,13 @@ import os
 from cryptography.fernet import Fernet
 
 
-def administrar_clau():
+def generar_clau():
+
     clau = Fernet.generate_key()
+
     print(f"[✔] CLAU GENERADA")
     return clau
+
 
 def guardar_clau(ruta,clau):
 
@@ -21,7 +24,8 @@ def guardar_clau(ruta,clau):
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
 
-def encriptar_arxiu(ruta,clau):
+
+def xifrar_arxiu(ruta,clau):
 
     if not os.path.exists(ruta):
         print(f"[X] ERROR: ARXIU NO EXISTENT: {ruta}")
@@ -44,7 +48,43 @@ def encriptar_arxiu(ruta,clau):
 
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
+
     except TypeError as error:
         print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
+
+    except Exception as error:
+        print(f"[X] ERROR INESPERAT: {error}")
+
+def desxifrar_arxiu(ruta,clau):
+
+    if not os.path.exists(ruta):
+        print(f"[X] ERROR: ARXIU NO EXISTENT: {ruta}")
+        return None
+    try:
+        if ruta.endswith(".locked"):
+            desxifratge = Fernet(clau)
+
+            with open(ruta, "rb") as file:
+                contingut = file.read()
+
+            text_desxifrat = desxifratge.decrypt(contingut)
+
+            with open(ruta, "wb") as file:
+                file.write(text_desxifrat)
+
+            nou_nom = ruta.replace(".locked","")
+            os.rename(ruta,nou_nom)
+
+            print(f"[✔] ARXIU DESXIFRAT CORRECTAMENT: {nou_nom}")
+
+        else:
+            print(f"[X] ERROR: L'ARXIU NO ESTA XIFRAT: {ruta}")
+
+    except IOError as error:
+        print(f"[X] ERROR AL GUARDAR: {error}")
+        
+    except TypeError as error:
+        print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
+
     except Exception as error:
         print(f"[X] ERROR INESPERAT: {error}")
