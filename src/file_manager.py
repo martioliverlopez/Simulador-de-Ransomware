@@ -14,4 +14,5 @@ def llistar_fitxers(ruta: str):
         print("[ERROR]: No s'ha trobat l'arxiu")
         return ""
 
-print(llistar_fitxers("ruta_que_no_existeix"))
+print(llistar_fitxers("ruta_que_no_existeix"))        #Aquesta linea serveix de prova per a veure que el programa funciona
+
