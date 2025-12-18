@@ -1,1 +1,5 @@
-a
+__pycache__/
+.venv/
+*.key
+sandbox/
+.vscode/
