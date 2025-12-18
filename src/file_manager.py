@@ -1,6 +1,7 @@
 import os
 
 def llistar_fitxers(ruta: str):
+    
     if os.path.exists(ruta):
         arxius = os.listdir(ruta)
         print(f"--- Arxius trobats a {ruta} ---")
@@ -12,7 +13,7 @@ def llistar_fitxers(ruta: str):
         return arxius
     else:
         print("[ERROR]: No s'ha trobat l'arxiu")
-        return ""
+        return []
 
 print(llistar_fitxers("ruta_que_no_existeix"))        #Aquesta linea serveix de prova per a veure que el programa funciona
 
@@ -23,7 +24,6 @@ def registrar_log(missatge: str):
 
     if not os.path.exists(carpeta_logs):
         os.makedirs(carpeta_logs)                           #Utilitzem .makedirs == Make directories
-
-        fitxer = open(ruta_completa, "a", encoding="utf-8")
+    
+    with open(ruta_completa, "a", encoding="utf-8") as fitxer:
         fitxer.write(missatge + "\n")
-        fitxer.close()
