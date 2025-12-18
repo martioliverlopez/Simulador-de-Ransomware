@@ -2,15 +2,10 @@ import os
 from cryptography.fernet import Fernet, InvalidToken
 
 
-def generar_clau():
+
+def generar_i_guardar_clau(ruta):
 
     clau = Fernet.generate_key()
-
-    print(f"[✔] CLAU GENERADA")
-    return clau
-
-
-def guardar_clau(ruta,clau):
 
     directori = os.path.dirname(ruta)
 
@@ -21,8 +16,25 @@ def guardar_clau(ruta,clau):
         with open(ruta, "wb") as clau_file:
             clau_file.write(clau)
             print(f"[✔] CLAU GUARDADA A {ruta}")
+
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
+
+
+def carregar_clau(ruta):
+
+    try:
+        with open(ruta, "rb") as file:
+            clau = file.read()
+        return clau
+    
+    except FileNotFoundError as error:
+        print(f"[X] ERROR AL BUSCAR CLAU: {error}")
+        return None
+    
+    except Exception as error:
+        print(f"[X] ERROR INESPERAT CARREGANT LA CLAU: {error}")
+        return None
 
 
 def xifrar_arxiu(ruta,clau):
@@ -53,7 +65,7 @@ def xifrar_arxiu(ruta,clau):
         print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
 
     except Exception as error:
-        print(f"[X] ERROR INESPERAT: {error}")
+        print(f"[X] ERROR INESPERAT XIFRANT L'ARXIU: {error}")
 
 def desxifrar_arxiu(ruta,clau):
 
@@ -90,4 +102,4 @@ def desxifrar_arxiu(ruta,clau):
         print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
 
     except Exception as error:
-        print(f"[X] ERROR INESPERAT: {error}")
+        print(f"[X] ERROR INESPERAT DESXIFRANT L'ARXIU: {error}")
