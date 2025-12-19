@@ -3,3 +3,5 @@ __pycache__/
 *.key
 sandbox/
 .vscode/
+*.pyc
+.DS_Store

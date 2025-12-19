@@ -1,10 +1,10 @@
 import os
 from cryptography.fernet import Fernet, InvalidToken
-
+import file_manager
 
 
 def generar_i_guardar_clau(ruta):
-
+    file_manager.registrar_log(f"NOVA CLAU GENERADA A {ruta}","CRITICAL")
     clau = Fernet.generate_key()
 
     directori = os.path.dirname(ruta)
@@ -19,6 +19,7 @@ def generar_i_guardar_clau(ruta):
 
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
+        file_manager.registrar_log("ERROR AL GENERAR O GUARDAR LA CLAU", "ERROR")
 
 
 def carregar_clau(ruta):
@@ -30,10 +31,12 @@ def carregar_clau(ruta):
     
     except FileNotFoundError as error:
         print(f"[X] ERROR AL BUSCAR CLAU: {error}")
+        file_manager.registrar_log(f"CLAU NO TROBADA A {ruta}", "WARNING")
         return None
     
     except Exception as error:
         print(f"[X] ERROR INESPERAT CARREGANT LA CLAU: {error}")
+        file_manager.registrar_log(f"CLAU CORRUPTA DETECTADA A {ruta}", "ERROR")
         return None
 
 
@@ -57,15 +60,19 @@ def xifrar_arxiu(ruta,clau):
         nou_nom = ruta + ".locked"
         os.rename(ruta, nou_nom)
         print(f"[✔] ARXIU XIFRAT CORRECTAMENT: {nou_nom}")
+        file_manager.registrar_log(f"ARXIU XIFRAT: {nou_nom}", "INFO")
 
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
+        file_manager.registrar_log(f"INTENT DE FIXRATGE FALLIT A {ruta}", "ERROR")
 
     except TypeError as error:
         print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
+        file_manager.registrar_log(f"INTENT DE FIXRATGE FALLIT A {ruta}", "ERROR")
 
     except Exception as error:
         print(f"[X] ERROR INESPERAT XIFRANT L'ARXIU: {error}")
+        file_manager.registrar_log(f"INTENT DE FIXRATGE FALLIT A {ruta}", "ERROR")
 
 def desxifrar_arxiu(ruta,clau):
 
@@ -88,18 +95,24 @@ def desxifrar_arxiu(ruta,clau):
             os.rename(ruta,nou_nom)
 
             print(f"[✔] ARXIU DESXIFRAT CORRECTAMENT: {nou_nom}")
+            file_manager.registrar_log(f"ARXIU RECUPERAT CORRECTAMENT: {ruta}", "INFO")
 
         else:
             print(f"[X] ERROR: L'ARXIU NO ESTA XIFRAT: {ruta}")
 
     except IOError as error:
         print(f"[X] ERROR AL GUARDAR: {error}")
+        file_manager.registrar_log(f"INTENT DE DESFIXRATGE FALLIT A {ruta}", "CRITICAL")
     
     except InvalidToken as error:
         print(f"[X] ERROR: CLAU DE DESXIFRATGE INCORRECTA O ARXIU CORRUPTE: {error}")
+        file_manager.registrar_log(f"INTENT DE DESFIXRATGE FALLIT A {ruta}", "CRITICAL")
 
     except TypeError as error:
         print(f"[X] ERROR: DADES EN FORMAT INCORRECTE")
+        file_manager.registrar_log(f"INTENT DE DESFIXRATGE FALLIT A {ruta}", "CRITICAL")
+
 
     except Exception as error:
         print(f"[X] ERROR INESPERAT DESXIFRANT L'ARXIU: {error}")
+        file_manager.registrar_log(f"INTENT DE DESFIXRATGE FALLIT A {ruta}", "CRITICAL")
