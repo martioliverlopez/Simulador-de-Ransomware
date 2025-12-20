@@ -4,30 +4,33 @@ import crypto_engine
 
 RUTA_SANDBOX = "sandbox"
 RUTA_CLAU = "gestor_claus.key"
+PROHIBITED_WHITELIST = [".py", ".key", ".exe", ".dll", ".sys", ".locked", ".ini", ".lnk", ".bat"]                    #Creem una llista clara de tot el que NO volem xifrar mai i afegim les extensions del sistema per seguretat
 
 def mostrar_menu():             
-    file_manager.registrar_log("SESSIÓ INICIADA AL SIMULADOR DE RANSOMWARE", "INFO")                   
+    file_manager.registrar_log("SESSIO INICIADA AL SIMULADOR DE RANSOMWARE", "INFO")                   
     while True:
         print("\n" + "=" * 32)
         print("   SIMULADOR DE RANSOMWARE")    
         print("  Marti Oliver - Marc Fernandez")     
-        print("           ENTI - UB")             
+        print("        ENTI - UB")             
         print("=" * 32)
-        print("1. Infectar (Xifrar)")          # Tasca SDR-9 
-        print("2. Recuperar (Desxifrar)")       # Tasca SDR-12 
-        print("3. Veure historial (Logs)")      # Tasca SDR-10 
+        print("1. Infectar (Xifrar)")          
+        print("2. Recuperar (Desxifrar)")       
+        print("3. Veure historial (Logs)")      
         print("4. Sortir")                      
         
         opcio = input("\nTria una opcio (1-4): ")        
         
         if opcio == "1":
-            file_manager.registrar_log("LA OPCIÓ 'INFECTAR' HA ESTAT SELECCIONADA", "INFO")
+            file_manager.registrar_log("LA OPCIO 'INFECTAR' HA ESTAT SELECCIONADA", "INFO")
             print("\n[INICIANT XIFRATGE...]")
+            
             if not os.path.exists(RUTA_SANDBOX):
-                print("[X] ERROR: NO EXISTEIX EL FOLDER SANDBOX, ENCRIPTACIÓ ATURADA")
-                file_manager.registrar_log("INTENT D'INFECCIÓ FALLIT, FOLDER SANDBOX INEXISTENT", "WARNING")
+                print("[X] ERROR: NO EXISTEIX EL FOLDER SANDBOX")
+                file_manager.registrar_log("INTENT D'INFECCIO FALLIT, FOLDER SANDBOX INEXISTENT", "WARNING")
                 continue
-            if os.path.exists(RUTA_CLAU) and RUTA_CLAU:
+                
+            if os.path.exists(RUTA_CLAU):
                 print("\n[EXTRAIENT LA CLAU...]")
                 clau = crypto_engine.carregar_clau(RUTA_CLAU)
             else:
@@ -35,35 +38,39 @@ def mostrar_menu():
                 crypto_engine.generar_i_guardar_clau(RUTA_CLAU)
                 clau = crypto_engine.carregar_clau(RUTA_CLAU)
 
+            # Aqui fem servir la nova funcio recursiva de la SDR-14
             llista_arxius = file_manager.llistar_fitxers(RUTA_SANDBOX)
 
-            for arxiu in llista_arxius:
+            for ruta_completa in llista_arxius:
+                # Agafem el nom del fitxer per comprovar l'extensio
+                nom_arxiu, extensio = os.path.splitext(ruta_completa)
 
-                ruta_completa = os.path.join(RUTA_SANDBOX, arxiu)
-
-                if arxiu.startswith(".") or arxiu.endswith(".py") or arxiu.endswith(".key") or arxiu.endswith(".exe") or arxiu.endswith(".dll") or arxiu.endswith(".sys") or arxiu.endswith(".locked"):
+                # Filtres de seguretat (Llista blanca)
+                if extensio.lower() in PROHIBITED_WHITELIST or nom_arxiu.startswith("."):
+                    print("[SEGURETAT] Ignorant fitxer protegit: " + ruta_completa)
                     continue
 
                 crypto_engine.xifrar_arxiu(ruta_completa, clau)
-            print(f"ARXIUS XIFRATS CORRECTAMENT A {RUTA_SANDBOX}")
+            
+            print("ARXIUS XIFRATS CORRECTAMENT A " + RUTA_SANDBOX)
 
         elif opcio == "2":
-            file_manager.registrar_log("LA OPCIÓ 'RECUPERAR' HA ESTAT SELECCIONADA", "INFO")
+            file_manager.registrar_log("LA OPCIO 'RECUPERAR' HA ESTAT SELECCIONADA", "INFO")
             print("\n[INICIANT RECUPERACIO...]")
+            
             clau = crypto_engine.carregar_clau(RUTA_CLAU)
             if not clau:
-                print(f"[X] ERROR: LA CLAU NO S'HA TROBAT A {RUTA_CLAU}")
-                file_manager.registrar_log("ERROR DE RECUPERACIÓ, CLAU CRIPTOGRÀFICA INEXISTENT O INVÀLIDA", "ERROR")
+                print("[X] ERROR: LA CLAU NO S'HA TROBAT")
+                file_manager.registrar_log("ERROR DE RECUPERACIO, CLAU INEXISTENT", "ERROR")
                 continue
 
             llista_arxius = file_manager.llistar_fitxers(RUTA_SANDBOX)
             
-            for arxiu in llista_arxius:
-                ruta_completa = os.path.join(RUTA_SANDBOX, arxiu)
-                if arxiu.endswith(".locked"):
+            for ruta_completa in llista_arxius:
+                if ruta_completa.endswith(".locked"):
                     crypto_engine.desxifrar_arxiu(ruta_completa, clau)
 
-            print(f"ARXIUS DESXIFRATS CORRECTAMENT A {RUTA_SANDBOX}")
+            print("ARXIUS RECUPERATS CORRECTAMENT A " + RUTA_SANDBOX)
 
         elif opcio == "3":
             print("\n[MOSTRANT HISTORIAL DE LOGS]")
@@ -71,11 +78,11 @@ def mostrar_menu():
             input("\n PREM ENTER PER A CONTINUAR")
             
         elif opcio == "4":
-            file_manager.registrar_log("SESSIÓ TANCADA AL SIMULADOR DE RANSOMWARE", "INFO")
+            file_manager.registrar_log("SESSIO TANCADA AL SIMULADOR DE RANSOMWARE", "INFO")
             print("\n[INFO]: Simulacio finalitzada amb seguretat.")
-            print("[INFO]: Revisa la carpeta 'logs' per veure l'activitat.")
             break
         else:
-            print(f"[ERROR]: '{opcio}' no es valid. Tria del 1 al 4.")
+            print("[ERROR]: Opcio no valida.")
 
-mostrar_menu()
+if __name__ == "__main__":
+    mostrar_menu()
