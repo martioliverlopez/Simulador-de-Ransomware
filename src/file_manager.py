@@ -1,19 +1,24 @@
 import os
 from datetime import datetime
 
-def llistar_fitxers(ruta: str):
+def llistar_fitxers(ruta):
+    # 1. Creem la llista buida
+    llista_final = []
     
+    # 2. Comprovem si la carpeta existeix
     if os.path.exists(ruta):
-        arxius = os.listdir(ruta)
-        print(f"--- Arxius trobats a {ruta} ---")
+        # 3. Busquem a totes les subcarpetes
+        for arrel, directoris, fitxers in os.walk(ruta):
+            for nom in fitxers:
+                # 4. Creem el cami sencer i el guardem
+                cami_sencer = os.path.join(arrel, nom)
+                llista_final.append(cami_sencer)
         
-        for arxiu in arxius:
-            ruta_completa = os.path.join(ruta, arxiu)
-            if os.path.isfile(ruta_completa):
-                print(arxiu)      
-        return arxius
+        # 5. Registrem quants n'hem trobat i retornem la llista
+        registrar_log("Fitxers trobats: " + str(len(llista_final)), "INFO")
+        return llista_final
     else:
-        print("[ERROR]: No s'ha trobat l'arxiu")
+        registrar_log("Error: No s'ha trobat la carpeta", "ERROR")
         return []
 
 #print(llistar_fitxers("ruta_que_no_existeix"))        #Aquesta linea serveix de prova per a veure que el programa funciona
@@ -41,7 +46,7 @@ def registrar_log(missatge: str, nivell: str):
 def llegir_logs():
 
     if not os.path.exists(RUTA_LOGS):
-        print("[INFO] NO EXISTEIX EL REGISTRE D'ACTIVITAT PRÈVIA")
+        print("[INFO] NO EXISTEIX EL REGISTRE D'ACTIVITAT PREVIA")
         return None
     print("="*10)
     print("HISTORIAL DE LOGS")
@@ -53,7 +58,7 @@ def llegir_logs():
                 if contingut:
                     print(contingut)
                 else:
-                    print("[INFO] EL FITXER DE LOGS ESTÀ BUIT")
+                    print("[INFO] EL FITXER DE LOGS ESTA BUIT")
     except Exception as error:
         print(f"[ERROR] ERROR LLEGINT ELS LOGS: {error}")
     
