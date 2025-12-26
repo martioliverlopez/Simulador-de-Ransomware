@@ -1,7 +1,5 @@
 import os
-
 import file_manager                 
-
 import crypto_engine
 
 # --- CONFIGURACIO I CONSTANTS ---
@@ -101,4 +99,3 @@ def mostrar_menu():
 
 if __name__ == "__main__":
     mostrar_menu()
-
