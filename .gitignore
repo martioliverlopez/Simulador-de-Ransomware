@@ -1,4 +1,7 @@
 __pycache__/
 .venv/
 *.key
-targets/
+sandbox/
+.vscode/
+*.pyc
+.DS_Store
