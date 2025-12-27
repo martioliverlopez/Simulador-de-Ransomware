@@ -25,10 +25,17 @@ def xifrar_arxiu(ruta, clau):
         f = Fernet(clau)
         with open(ruta, "rb") as file:
             dades = file.read()
+
         encriptat = f.encrypt(dades)
+
         with open(ruta, "wb") as file:
             file.write(encriptat)
-        os.rename(ruta, ruta + ".locked")
+
+        locked_nom= ruta + ".locked"
+        os.rename (ruta, locked_nom)
+        ruta_completa = os.path.abspath(locked_nom)
+        file_manager.registrar_log(f"FITXER XIFRAT: {ruta_completa}","INFO")
+
     except Exception as e:
         print(f"Error xifrant {ruta}: {e}")
 
