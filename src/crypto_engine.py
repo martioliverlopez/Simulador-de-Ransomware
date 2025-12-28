@@ -24,7 +24,8 @@ def carregar_clau(ruta):
     try:
         with open(ruta, "rb") as file:
             return file.read()
-    except Exception:
+    except Exception as e:
+        print(f"[X] Error carregant clau: {e}")
         return None
 
 def xifrar_arxiu(ruta, clau):
@@ -44,7 +45,7 @@ def xifrar_arxiu(ruta, clau):
         file_manager.registrar_log(f"FITXER XIFRAT: {ruta_completa}","INFO")
 
     except Exception as e:
-        print(f"Error xifrant {ruta}: {e}")
+        print(f"[X] Error xifrant {ruta}: {e}")
 
 def desxifrar_arxiu(ruta, clau):
     try:
