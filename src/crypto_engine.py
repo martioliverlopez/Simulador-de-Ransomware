@@ -38,7 +38,7 @@ def xifrar_arxiu(ruta, clau):
         with open(ruta, "wb") as file:
             file.write(encriptat)
 
-        locked_nom= ruta + ".locked"
+        locked_nom = ruta + ".locked"
         os.rename (ruta, locked_nom)
         ruta_completa = os.path.abspath(locked_nom)
         file_manager.registrar_log(f"FITXER XIFRAT: {ruta_completa}","INFO")
@@ -58,3 +58,5 @@ def desxifrar_arxiu(ruta, clau):
         os.rename(ruta, original)
     except Exception as e:
         print(f"Error desxifrant {ruta}: {e}")
+    except InvalidToken as e:
+        print(f"[!] ERROR CRÍTIC: La clau no es valida per a desxifrar {ruta}")
