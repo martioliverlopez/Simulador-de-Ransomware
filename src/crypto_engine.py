@@ -3,7 +3,14 @@ from cryptography.fernet import Fernet, InvalidToken
 import file_manager
 
 def generar_i_guardar_clau(ruta):
+
+    if os.path.exists(ruta) and os.path.getsize(ruta) > 0:
+        print(f"[INFO] La clau ja existeix a {ruta}, s'ha abortat la generació d'una nova per a preservar dades")
+        file_manager.registrar_log(f"GENERACIÓ ATURADA, CLAU JA EXISTENT A {ruta}", "INFO")
+        return
+
     clau = Fernet.generate_key()
+
     try:
         with open(ruta, "wb") as clau_file:
             clau_file.write(clau)
