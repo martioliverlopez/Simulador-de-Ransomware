@@ -61,3 +61,4 @@ def desxifrar_arxiu(ruta, clau):
         print(f"Error desxifrant {ruta}: {e}")
     except InvalidToken as e:
         print(f"[!] ERROR CRÍTIC: La clau no es valida per a desxifrar {ruta}")
+        
