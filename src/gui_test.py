@@ -37,4 +37,4 @@ def provar_interfac():
     app.mainloop()
 
 if __name__ == "__main__":
-    provar_interficie()
+    provar_interfac()
