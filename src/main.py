@@ -1,6 +1,7 @@
 import os
 import file_manager                 
 import crypto_engine
+import customtkinter
 
 # --- CONFIGURACIO I CONSTANTS ---
 RUTA_SANDBOX = "sandbox"
@@ -98,3 +99,4 @@ def mostrar_menu():
 
 if __name__ == "__main__":
     mostrar_menu()
+
