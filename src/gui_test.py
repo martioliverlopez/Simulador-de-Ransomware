@@ -1,6 +1,6 @@
 import customtkinter as ctk
 
-def provar_interficie():
+def provar_interfac():
 
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("blue")
