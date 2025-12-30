@@ -10,7 +10,8 @@ PROHIBITED_WHITELIST = [".py", ".key", ".exe", ".dll", ".sys", ".locked", ".ini"
 
 RUTA_PROPIA = os.path.dirname(os.path.abspath(__file__))
 
-def simular_exfiltracio_clau():
+def simular_exfiltracio_clau() -> None:
+#Simula l'enviament de la clau a un servidor C2 remot
     print("\n" + "-"*40)
     print("[CONNEXIO] Connectant amb el servidor C2...")
     print("[INFO] Enviant clau de xifratge de forma segura...")
@@ -19,7 +20,9 @@ def simular_exfiltracio_clau():
     print("-"*40)
 
 def mostrar_menu():             
-    file_manager.registrar_log("SESSIO INICIADA AL SIMULADOR", "INFO")                       
+#Loop principal on s'integra tot el codi
+    file_manager.registrar_log("SESSIO INICIADA AL SIMULADOR", "INFO")   
+
     while True:
         print("\n" + "=" * 32)
         print("    SIMULADOR DE RANSOMWARE")    
