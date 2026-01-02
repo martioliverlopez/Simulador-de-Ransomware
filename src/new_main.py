@@ -14,7 +14,7 @@ class AplicacioHacker:
         self.finestra = finestra
         self.finestra.title("TERMINAL DE CIBERSEGURETAT - ENTI UB")
         self.finestra.geometry("1000x600")
-        self.finestra.resizable(False, False) # SDR-24
+        self.finestra.resizable(False, False) 
         
         self.color_fons = "#000000"
         self.color_text = "#00FF00"
@@ -23,7 +23,7 @@ class AplicacioHacker:
         
         self.finestra.configure(bg=self.color_fons)
         
-        # SDR-30: Sortida segura
+        
         self.finestra.protocol("WM_DELETE_WINDOW", self.sortida_segura)
         
         self.txt_consola = None 
@@ -55,7 +55,7 @@ class AplicacioHacker:
         tk.Label(contingut, text="[ PREM ESPAI PER ACCEDIR AL SISTEMA ]", 
                  fg="#ffffff", bg=self.color_fons, font=("Consolas", 18)).pack(pady=60)
 
-        # AQUI estava l'error de la captura: ara la funcio anar_a_menu ja existeix a sota
+       
         self.finestra.bind("<space>", self.anar_a_menu)
 
     def anar_a_menu(self, event):
@@ -71,7 +71,7 @@ class AplicacioHacker:
         contingut = tk.Frame(self.pantalla, bg=self.color_fons)
         contingut.place(relx=0.5, rely=0.5, anchor="center")
 
-        tk.Label(contingut, text="--- MAIN CONTROL PANEL ---", 
+        tk.Label(contingut, text="--- PANELL DE CONTROL ---", 
                  fg=self.color_text, bg=self.color_fons, font=("Consolas", 22, "bold")).pack(pady=30)
 
         opcions = [
@@ -89,7 +89,7 @@ class AplicacioHacker:
                             activeforeground=self.color_fons,
                             command=comanda)
             
-            # SDR-28: Efecte interactiu
+
             btn.bind("<Enter>", lambda e, b=btn: b.config(bg=self.color_hover))
             btn.bind("<Leave>", lambda e, b=btn: b.config(bg=self.color_boto))
             btn.pack(pady=10)
@@ -113,14 +113,14 @@ class AplicacioHacker:
             self.txt_consola.see(tk.END)
 
     def sortida_segura(self):
-        if messagebox.askyesno("SORTIDA SEGURA", "SEGUR QUE VOLS TANCAR LA TERMINAL?"):
+        if messagebox.askyesno("SORTIR DEL PROGRAMA", "SEGUR QUE VOLS TANCAR LA TERMINAL?"):
             self.finestra.quit()
 
     def accions_infectar(self):
-        self.crear_consola("RUNNING MALWARE SIMULATION...")
+        self.crear_consola("EXECUTANT SIMULACIO DE MALWARE...")
         try:
             if not os.path.exists(RUTA_SANDBOX):
-                messagebox.showerror("CRITICAL ERROR", "Directori sandbox no trobat")
+                messagebox.showerror("ERROR CRITIC", "Directori sandbox no trobat")
                 return
             self.afegir_a_consola("Iniciant generacio de clau...")
             crypto_engine.generar_i_guardar_clau(RUTA_CLAU)
@@ -129,14 +129,14 @@ class AplicacioHacker:
             for f in fitxers:
                 if not any(f.endswith(ex) for ex in EXTENSIONS_OK):
                     crypto_engine.xifrar_arxiu(f, clau)
-                    self.afegir_a_consola(f"SUCCESS: {os.path.basename(f)} xifrat")
+                    self.afegir_a_consola(f"SIMULACIO COMPLETADA: {os.path.basename(f)} xifrat")
             file_manager.generar_nota_rescat(RUTA_SANDBOX)
             self.afegir_a_consola("\n--- PROCES FINALITZAT AMB EXIT ---")
         except Exception as e:
             self.afegir_a_consola(f"ERROR: {e}")
 
     def accions_recuperar(self):
-        self.crear_consola("DECRYPTING DATA...")
+        self.crear_consola("DESENCRIPTANT INFORMACIO...")
         clau = crypto_engine.carregar_clau(RUTA_CLAU)
         if not clau:
             messagebox.showwarning("ACCES DENEGAT", "Falta la clau")
@@ -145,10 +145,10 @@ class AplicacioHacker:
             for f in fitxers:
                 if f.endswith(".locked"):
                     crypto_engine.desxifrar_arxiu(f, clau)
-                    self.afegir_a_consola(f"RESTORED: {os.path.basename(f)}")
+                    self.afegir_a_consola(f"RESTAURAT: {os.path.basename(f)}")
 
     def accions_historial(self):
-        self.crear_consola("ACCESSING SYSTEM LOGS...")
+        self.crear_consola("ACCEDINT ALS REGISTRES DEL SISTEMA...")
         if os.path.exists(file_manager.RUTA_LOGS):
             with open(file_manager.RUTA_LOGS, "r") as f:
                 self.afegir_a_consola(f.read())
