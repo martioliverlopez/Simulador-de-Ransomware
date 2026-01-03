@@ -8,6 +8,9 @@ import file_manager
 RUTA_SANDBOX = "sandbox"
 RUTA_CLAU = "config_sys_04.dat"
 EXTENSIONS_OK = [".py", ".exe", ".dat", ".locked"] 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+RUTA_LOGO = os.path.join(PROJECT_ROOT, "logo_virus.png")
 
 class AplicacioHacker:
     def __init__(self, finestra):
@@ -42,7 +45,7 @@ class AplicacioHacker:
 
         contingut = tk.Frame(self.pantalla, bg=self.color_fons)
         contingut.place(relx=0.5, rely=0.5, anchor="center")
-
+        
         tk.Label(contingut, text="GENERADOR DE RANSOMWARE", 
                  fg=self.color_text, bg=self.color_fons, font=("Consolas", 28, "bold")).pack(pady=20)
         
