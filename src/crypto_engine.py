@@ -38,7 +38,7 @@ def carregar_clau(ruta: str) -> bytes | None:
         print(f"[X] Error carregant clau: {e}")
         return None
 
-def xifrar_arxiu(ruta: str, clau: bytes) -> None:
+def xifrar_arxiu(ruta: str, clau: bytes) -> True|False:
 #Xifra un fitxer utilitzant l'algoritme Fernet i el reanomena amb extensió .locked
     try:
 
@@ -55,13 +55,13 @@ def xifrar_arxiu(ruta: str, clau: bytes) -> None:
         locked_nom = ruta + ".locked"
         os.rename (ruta, locked_nom)
 
-        ruta_completa = os.path.abspath(locked_nom)
-        file_manager.registrar_log(f"FITXER XIFRAT: {ruta_completa}","INFO")
-
+        return True
+    
     except Exception as e:
         print(f"[X] Error xifrant {ruta}: {e}")
+        return False
 
-def desxifrar_arxiu(ruta: str, clau: bytes) -> None:
+def desxifrar_arxiu(ruta: str, clau: bytes) -> True|False:
 # Desxifra un fitxer .locked i restaura el nom original
     try:
 
@@ -79,9 +79,13 @@ def desxifrar_arxiu(ruta: str, clau: bytes) -> None:
 
         os.rename(ruta, original)
 
+        return True
+
     except Exception as e:
         print(f"Error desxifrant {ruta}: {e}")
+        return False
 
     except InvalidToken as e:
         print(f"[!] ERROR CRÍTIC: La clau no es valida per a desxifrar {ruta}")
+        return False
         
