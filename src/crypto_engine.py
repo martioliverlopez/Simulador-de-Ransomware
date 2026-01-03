@@ -8,7 +8,7 @@ def generar_i_guardar_clau(ruta: str) -> None:
 
         print(f"[INFO] La clau ja existeix a {ruta}, s'ha abortat la generació d'una nova per a preservar dades")
 
-        file_manager.registrar_log(f"CLAU_NO_GENERADA(JA EXISTENT)", "INFO", {"path": {ruta}})
+        file_manager.registrar_log(f"CLAU_NO_GENERADA(JA EXISTENT)", "INFO", {"path": ruta})
         return
 
     clau = Fernet.generate_key()
@@ -18,7 +18,7 @@ def generar_i_guardar_clau(ruta: str) -> None:
         with open(ruta, "wb") as clau_file:
             clau_file.write(clau)
 
-        file_manager.registrar_log(f"CLAU_GENERADA", "INFO", {"path": {ruta}})
+        file_manager.registrar_log(f"CLAU_GENERADA", "INFO", {"path": ruta})
 
     except Exception as error:
         print(f"[X] ERROR GENERANT CLAU: {error}")

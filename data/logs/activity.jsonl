@@ -1,0 +1,20 @@
+{"timestamp": "2026-01-03T11:52:23.605220", "level": "INFO", "event": "SESSIO INICIADA AL SIMULADOR"}
+{"timestamp": "2026-01-03T11:52:28.874921", "level": "INFO", "event": "INICIANT INFECCIO", "target_dir": "sandbox"}
+{"timestamp": "2026-01-03T11:52:31.129336", "level": "WARNING", "event": "INTENT DE RECUPERACIO SENSE CLAU"}
+{"timestamp": "2026-01-03T15:05:02.234526", "level": "INFO", "event": "CLAU GENERADA A config_sys_04.dat"}
+{"timestamp": "2026-01-03T15:06:09.236541", "level": "INFO", "event": "GENERACI\u00d3 ATURADA, CLAU JA EXISTENT A config_sys_04.dat"}
+{"timestamp": "2026-01-03T19:19:26.688056", "level": "INFO", "event": "SESSIO INICIADA AL SIMULADOR"}
+{"timestamp": "2026-01-03T19:20:33.132578", "level": "INFO", "event": "SESSIO INICIADA AL SIMULADOR"}
+{"timestamp": "2026-01-03T19:20:43.783466", "level": "INFO", "event": "INICIANT INFECCIO", "target_dir": "/mnt/c/Users/Marti/Simulador de Ransomware/data/sandbox"}
+{"timestamp": "2026-01-03T19:23:41.450148", "level": "INFO", "event": "SESSIO INICIADA AL SIMULADOR"}
+{"timestamp": "2026-01-03T19:23:43.838822", "level": "INFO", "event": "INICIANT INFECCIO", "target_dir": "/mnt/c/Users/Marti/Simulador de Ransomware/data/sandbox"}
+{"timestamp": "2026-01-03T19:23:43.877469", "level": "INFO", "event": "CLAU_NO_GENERADA(JA EXISTENT)", "path": "/mnt/c/Users/Marti/Simulador de Ransomware/data/system/config_sys_04.dat"}
+{"timestamp": "2026-01-03T19:23:43.900483", "level": "CRITICAL", "event": "CLAU EXFILTRADA AL SERVIDOR EXTERN"}
+{"timestamp": "2026-01-03T19:23:44.044554", "level": "INFO", "event": "FITXER_ENCRIPTAT", "path": "/mnt/c/Users/Marti/Simulador de Ransomware/data/sandbox/acuerdo_comercial_cliente_2025.txt"}
+{"timestamp": "2026-01-03T19:23:44.088816", "level": "INFO", "event": "FITXER_ENCRIPTAT", "path": "/mnt/c/Users/Marti/Simulador de Ransomware/data/sandbox/facturacion_Q2_2025.txt"}
+{"timestamp": "2026-01-03T19:23:44.132308", "level": "INFO", "event": "FITXER_ENCRIPTAT", "path": "/mnt/c/Users/Marti/Simulador de Ransomware/data/sandbox/nota_interna_direccion.txt"}
+{"timestamp": "2026-01-03T19:23:44.170974", "level": "INFO", "event": "FITXER_ENCRIPTAT", "path": "/mnt/c/Users/Marti/Simulador de Ransomware/data/sandbox/rrhh_2025.txt"}
+{"timestamp": "2026-01-03T19:23:44.187318", "level": "INFO", "event": "FINAL_INFECCIO", "total_success": 4, "total_fails": 0}
+{"timestamp": "2026-01-03T19:23:44.239887", "level": "CRITICAL", "event": "CLAU LOCAL ELIMINADA"}
+{"timestamp": "2026-01-03T19:24:05.843943", "level": "WARNING", "event": "INTENT DE RECUPERACIO SENSE CLAU"}
+{"timestamp": "2026-01-03T19:28:29.078549", "level": "INFO", "event": "SESSIO INICIADA AL SIMULADOR"}

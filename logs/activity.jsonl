@@ -1,5 +1,0 @@
-{"timestamp": "2026-01-03T11:52:23.605220", "level": "INFO", "event": "SESSIO INICIADA AL SIMULADOR"}
-{"timestamp": "2026-01-03T11:52:28.874921", "level": "INFO", "event": "INICIANT INFECCIO", "target_dir": "sandbox"}
-{"timestamp": "2026-01-03T11:52:31.129336", "level": "WARNING", "event": "INTENT DE RECUPERACIO SENSE CLAU"}
-{"timestamp": "2026-01-03T15:05:02.234526", "level": "INFO", "event": "CLAU GENERADA A config_sys_04.dat"}
-{"timestamp": "2026-01-03T15:06:09.236541", "level": "INFO", "event": "GENERACI\u00d3 ATURADA, CLAU JA EXISTENT A config_sys_04.dat"}

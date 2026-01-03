@@ -1,8 +1,8 @@
 import json
 import os
 from datetime import datetime
+import config
 
-RUTA_LOGS = os.path.join("logs", "activity.jsonl")
 
 def llistar_fitxers(ruta: str) -> list[str]:
 #Recorre recursivament un directori i retorna una llista de rutes completes
@@ -19,10 +19,11 @@ def llistar_fitxers(ruta: str) -> list[str]:
 
 def registrar_log(event: str, nivell: str, dades_extra = None) -> None:
 #Registra un esdeveniment al fitxer de logs amb marca de temps
-    carpeta_logs = os.path.dirname(RUTA_LOGS)
+    ruta_logs = config.FILE_LOGS
+    carpeta_logs = os.path.dirname(ruta_logs)
 
-    if not os.path.exists(carpeta_logs):
-        os.makedirs(carpeta_logs)
+
+    os.makedirs(carpeta_logs, exist_ok=True)
 
     entrada_log = {
         "timestamp": datetime.now().isoformat(),
@@ -33,19 +34,21 @@ def registrar_log(event: str, nivell: str, dades_extra = None) -> None:
     if dades_extra:
         entrada_log.update(dades_extra)
 
-    with open(RUTA_LOGS, "a", encoding = "utf-8") as file:
+    with open(config.FILE_LOGS, "a", encoding = "utf-8") as file:
         file.write(json.dumps(entrada_log) + "\n")
 
 def llegir_logs() -> None:
 #Mostra el contingut del fitxer de logs per consola
 
-    if os.path.exists(RUTA_LOGS):
+    if os.path.exists(config.FILE_LOGS):
 
-        with open(RUTA_LOGS, "r", encoding="utf-8") as file:
+        with open(config.FILE_LOGS, "r", encoding="utf-8") as file:
             for linia in file:
-                dades = json.loads(linia)
-                print(f"[{dades['timestamp']}] {dades['event']}: {dades.get('path', '')} - {dades['level']}")
-
+                try: #Try afegit per a evitar errors en cas de linies buides al fitxer
+                    dades = json.loads(linia)
+                    print(f"[{dades['timestamp']}] {dades['event']}: {dades.get('path', '')} - {dades['level']}")
+                except Json.JSONDecodeError:
+                    continue
     else:
         print("No hi ha logs disponibles.")
 
