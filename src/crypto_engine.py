@@ -1,91 +1,65 @@
+# -*- coding: utf-8 -*-
 import os
 from cryptography.fernet import Fernet, InvalidToken
 import file_manager
 
-def generar_i_guardar_clau(ruta: str) -> None:
-#Genera una nova clau de xifratge Fernet i la desa en un fitxer
+def generar_i_guardar_clau(ruta):
+    # Genera una nova clau de xifratge Fernet i la desa en un fitxer
     if os.path.exists(ruta) and os.path.getsize(ruta) > 0:
-
-        print(f"[INFO] La clau ja existeix a {ruta}, s'ha abortat la generació d'una nova per a preservar dades")
-
-        file_manager.registrar_log(f"CLAU_NO_GENERADA(JA EXISTENT)", "INFO", {"path": ruta})
+        print(f"[INFO] La clau ja existeix a {ruta}, s'ha abortat la generacio d'una nova")
+        file_manager.registrar_log("CLAU_NO_GENERADA", ruta)
         return
 
     clau = Fernet.generate_key()
-
     try:
-
         with open(ruta, "wb") as clau_file:
             clau_file.write(clau)
-
-        file_manager.registrar_log(f"CLAU_GENERADA", "INFO", {"path": ruta})
-
+        file_manager.registrar_log("CLAU_GENERADA", ruta)
     except Exception as error:
         print(f"[X] ERROR GENERANT CLAU: {error}")
 
-def carregar_clau(ruta: str) -> bytes | None:
-#Carrega la clau de xifratge des d'un fitxer
-#Returns: Clau en bytes si té èxit, None si ha succeït algun error
+def carregar_clau(ruta):
+    # Carrega la clau de xifratge des d'un fitxer
     if not os.path.exists(ruta):
         return None
-    
     try:
-
         with open(ruta, "rb") as file:
             return file.read()
-        
     except Exception as e:
         print(f"[X] Error carregant clau: {e}")
         return None
 
-def xifrar_arxiu(ruta: str, clau: bytes) -> True|False:
-#Xifra un fitxer utilitzant l'algoritme Fernet i el reanomena amb extensió .locked
+def xifrar_arxiu(ruta, clau):
+    # Xifra un fitxer utilitzant l'algoritme Fernet i el reanomena
     try:
-
         f = Fernet(clau)
-
         with open(ruta, "rb") as file:
             dades = file.read()
-
         encriptat = f.encrypt(dades)
-
         with open(ruta, "wb") as file:
             file.write(encriptat)
-
         locked_nom = ruta + ".locked"
-        os.rename (ruta, locked_nom)
-
+        os.rename(ruta, locked_nom)
         return True
-    
     except Exception as e:
         print(f"[X] Error xifrant {ruta}: {e}")
         return False
 
-def desxifrar_arxiu(ruta: str, clau: bytes) -> True|False:
-# Desxifra un fitxer .locked i restaura el nom original
+def desxifrar_arxiu(ruta, clau):
+    # Desxifra un fitxer .locked i restaura el nom original
     try:
-
         f = Fernet(clau)
-
         with open(ruta, "rb") as file:
             dades = file.read()
-
         desencriptat = f.decrypt(dades)
-
         original = ruta.replace(".locked", "")
-
         with open(ruta, "wb") as file:
             file.write(desencriptat)
-
         os.rename(ruta, original)
-
         return True
-
+    except InvalidToken:
+        print(f"[!] ERROR CRITIC: La clau no es valida per a desxifrar {ruta}")
+        return False
     except Exception as e:
         print(f"Error desxifrant {ruta}: {e}")
         return False
-
-    except InvalidToken as e:
-        print(f"[!] ERROR CRÍTIC: La clau no es valida per a desxifrar {ruta}")
-        return False
-        
