@@ -9,6 +9,7 @@ import file_manager
 import config
 
 class AplicacioHacker:
+    #Configuracio inicial de la finestra (colors, mides...)
     def __init__(self, finestra):
         self.finestra = finestra
         self.finestra.title("TERMINAL DE CIBERSEGURETAT - ENTI UB")
@@ -26,10 +27,12 @@ class AplicacioHacker:
         self.pantalla = None
         self.pantalla_inici()
 
+#Funció que restableix la finestra (s'executara sempre que es vulgui iniciar una funcionalitat amb una nova finestra)
     def netejar(self):
         if self.pantalla:
             self.pantalla.destroy()
 
+#Primera pantalla que apareix al executar el programa (s'avança amb <space>)
     def pantalla_inici(self):
         self.netejar()
         self.pantalla = tk.Frame(self.finestra, bg=self.color_fons)
@@ -55,10 +58,12 @@ class AplicacioHacker:
 
         self.finestra.bind("<space>", self.anar_a_menu)
 
+#Funció que et porta al menu principal
     def anar_a_menu(self, event):
         self.finestra.unbind("<space>")
         self.pantalla_menu()
 
+#Funció amb les 5 funcionalitats que ofereix el programa (botons)
     def pantalla_menu(self):
         self.netejar()
         self.pantalla = tk.Frame(self.finestra, bg=self.color_fons)
@@ -79,6 +84,7 @@ class AplicacioHacker:
                       bg=self.color_boto, fg=self.color_text, 
                       font=("Consolas", 12, "bold"), command=comanda).pack(pady=10)
 
+#Pantalla on introduir els valors nº de compte i quantitat 
     def pantalla_pagament(self):
         self.netejar()
         self.pantalla = tk.Frame(self.finestra, bg=self.color_fons)
@@ -96,6 +102,7 @@ class AplicacioHacker:
         tk.Button(contingut, text="[ VERIFICAR ]", bg=self.color_boto, fg=self.color_text, font=("Consolas", 12, "bold"), command=self.validar_pagament).pack(pady=20)
         tk.Button(contingut, text="[ CANCEL-LAR ]", bg="#330000", fg="white", command=self.pantalla_menu).pack()
 
+#Funció que valida els valors necessaris (compte i quantitat) del pagament, i aixi obtenir la clau criptografica
     def validar_pagament(self):
         if self.ent_wallet.get() == "bc1qxy2kgdy6jrsqx7644vvv" and self.ent_btc.get() == "0.5":
             crypto_engine.generar_i_guardar_clau(config.FILE_KEY)
@@ -105,6 +112,7 @@ class AplicacioHacker:
         else:
             messagebox.showerror("ERROR", "Dades incorrectes.")
 
+#Simulació d'una terminal on es mostraran accions (xifratge, logs, o altres)
     def crear_consola(self, titol):
         self.netejar()
         self.pantalla = tk.Frame(self.finestra, bg=self.color_fons)
@@ -114,13 +122,15 @@ class AplicacioHacker:
         self.txt_consola.pack(pady=10, padx=20)
         tk.Button(self.pantalla, text="[ TORNAR ]", bg=self.color_boto, fg=self.color_text, command=self.pantalla_menu).pack(pady=5)
 
+#Funció que escriurà text a la "terminal" creada 
     def afegir_a_consola(self, missatge):
         if self.txt_consola:
-            self.txt_consola.config(state="normal")
+            self.txt_consola.config(state="normal") 
             self.txt_consola.insert(tk.END, missatge + "\n")
             self.txt_consola.see(tk.END)
-            self.txt_consola.config(state="disabled")
+            self.txt_consola.config(state="disabled") #important modificar l'estat de normal-disabled per a evitar que l'usuari sigui capaç d'escriure text a la terminal
 
+#Funció que gestiona el xifratge d'arxius
     def accions_infectar(self):
         self.crear_consola("EXECUTANT INFECCIO...")
         try:
@@ -142,6 +152,7 @@ class AplicacioHacker:
         except Exception as e:
             self.afegir_a_consola(f"ERROR: {e}")
 
+#Funció que gestiona el desxifratge d'arxius
     def accions_recuperar(self):
         if not os.path.exists(config.FILE_KEY):
             messagebox.showerror("ERROR", "Cal pagar el rescat primer.")
@@ -164,6 +175,8 @@ class AplicacioHacker:
         except Exception as e:
             self.afegir_a_consola(f"ERROR: {e}")
 
+
+#Funció que llegeix els logs del programa i els mostra per la GUI
     def accions_historial(self):
         self.crear_consola("LOGS DEL SISTEMA...")
         try:
@@ -177,10 +190,12 @@ class AplicacioHacker:
         except:
             self.afegir_a_consola("Error llegint logs.")
 
+#Finestra emergent que es mostra al intentar tancar la finestra de la GUI
     def sortida_segura(self):
         if messagebox.askyesno("SORTIDA", "Vols tancar?"):
             self.finestra.quit()
 
+#Només si l'arxiu s'executa directament
 if __name__ == "__main__":
     root = tk.Tk()
     AplicacioHacker(root)
