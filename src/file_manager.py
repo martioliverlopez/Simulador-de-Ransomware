@@ -3,7 +3,6 @@ import config
 from datetime import datetime
 
 # Configurem la ruta del log
-RUTA_LOGS = os.path.join("logs", "activity.log")
 
 def llistar_fitxers(ruta):
     llista_final = []
@@ -28,9 +27,9 @@ def registrar_log(esdeveniment, fitxer):
 
 def llegir_logs():
     print("\n--- HISTORIAL D ACTIVITAT (LOGS) ---")
-    if os.path.exists(RUTA_LOGS):
+    if os.path.exists(config.FILE_LOGS):
         try:
-            with open(RUTA_LOGS, "r", encoding="utf-8") as f:
+            with open(config.FILE_LOGS, "r", encoding="utf-8") as f:
                 contingut = f.read()
                 if contingut:
                     print(contingut)
