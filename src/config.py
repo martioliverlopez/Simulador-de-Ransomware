@@ -4,7 +4,7 @@ import os
 # Directori base: on es troba aquest fitxer config.py
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Tota la informacio a la subcarpeta 'data' que acabes de moure
+# Tota la informacio a la subcarpeta 'data'
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 LOGS_DIR = os.path.join(DATA_DIR, "logs")
