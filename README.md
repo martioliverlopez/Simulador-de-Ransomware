@@ -1,22 +1,16 @@
-# Simulador-de-Ransomware // Alpha-Version
+# Simulador de Ransomware - ENTI UB (Projecte Final) - Release Version
+Desenvolupat per Marti Oliver i Marc Fernández
 
-L'objectiu principal de l'Sprint 1 (de l'1 al 21 de desembre de 2025) ha estat establir les bases organitzatives i tècniques del projecte. En aquesta etapa, ens hem centrat a definir els objectius del grup i a utilitzar eines com JIRA per garantir una gestió eficient de les tasques, aixi com elaborar una part funcional que ens funcioni a mode de base sòlida per al projecte. El resultat d'aquest esforç és aquesta versió Alpha, que serveix com a prova de concepte funcional.
+Aquest projecte és un simulador educatiu de malware desenvolupat per a l'assignatura de Programació i Tecnologies de la Productivitat. L'objectiu és demostrar els mecanismes de xifratge simètric i la gestió de fitxers en un entorn controlat (sandbox), seguint metodologies àgils de desenvolupament. El programa desenvolupat simula un atac de ransomware on l'usuari estara obligat a passar per les fases que els atacants volen per a poder recuperar els seus arxius.
 
-Per aconseguir una base sòlida, hem estructurat el treball en tres eixos. Primer, hem preparat tota la infraestructura del repositori a GitHub amb una organització neta de carpetes (src/, data/, logs/) i una configuració de GitFlow que ens permet treballar de forma eficient. A més, hem implementat un motor de xifratge real mitjançant la llibreria cryptography, que permet generar claus simètriques i transformar fitxers de text pla en fitxers xifrats recuperables. Finalment, hem prioritzat la claredat d'ús amb un menú interactiu per terminal i un sistema de logs que registra tota l'activitat, assegurant que el programa només actuï dins la carpeta /sandbox per evitar qualsevol risc accidental.
+Gestió i evolució del Projecte:
 
-Guia d'execució:
+Aquest projecte desenvolupat entre desembre i gener ha estat dividit en 3 Sprints, sempre seguint la metodologia Scrum:
 
-Per posar en marxa aquesta versió Alpha, segueix aquests passos:
+Sprint 1: Durant el primer sprint els 2 integrants de l'equip ens vam posar d'acord i vam organitzar, en termes generals, tota l'estructura del projecte, aixi com establir els nostres objectius, decidir el projecte i avançar en un desenvolupament precoç per a una versio Alpha. En aquest primer Sprint es van programar funcions bàsiques, aixi com una estructura solida dels arxius necessaris per a poder continuar amb efectivitat.
 
-1. Instal·lació de dependències: És necessari instal·lar la llibreria de xifratge externa. Cal executar la següent comanda al terminal:
-   
-pip install cryptography
+Sprint 2: En aquest sprint es on vam fer el volum gran de feina de codi. Ens vam centrar en desenvolupar completament tot el programa, evitar i corretgir errors i, sobretot, garantir una bona comunicació entre nosaltres. Al final d'aquest sprint vam començar a implementar el Tkinter per a millorar la interfaç gràfica.
 
-2. Preparació de l'entorn: Crea una carpeta anomenada sandbox/ a l'arrel del projecte i col·loca-hi els fitxers que vulguis provar (incloent-hi subcarpetes si vols testar la recursivitat).
-   
-3. Llançament del programa: Executa el fitxer principal main.py
+Sprint 3: En aquest ultim Sprint ens hem centrat en treure el codi endavant, cominicant-nos constantment per a garantir que el programa rutllés com volguessim. A més, hem desenvolupat quasi tota la interfaç gràfica aixi com el desenvolupament d'una ultima mecànica que no haviem previst fins ara. Finalment hem tancat amb totes les necessitats Scrum requerides per a entregar el treball en el millor estat possible.
 
-4. Funcionament del menú:
-   - Opció 1 (Infectar): El programa buscarà tots els fitxers a la sandbox, aplicarà el filtre de seguretat i xifrarà els permesos afegint l'extensió .locked.
-   - Opció 2 (Recuperar): Utilitzarà la clau generada (gestor_claus.key) per tornar els fitxers al seu estat original.
-   - Opció 3 (Logs): Mostra l'historial d'accions realitzades pel programa.
+TAULELL JIRA: https://estudiant-team-ehgwiphm.atlassian.net/jira/software/projects/SDR/boards/35
