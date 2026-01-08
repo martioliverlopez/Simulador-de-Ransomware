@@ -17,6 +17,12 @@ Per a complir amb els requisits de l'activitat i, com que només hem sigut 2 els
 
   JIRA:
   Gestió del Backlog, Sprint Planning i seguiment de tasques mitjançant el taulell KANBAN. [https://estudiant-team-ehgwiphm.atlassian.net/jira/software/projects/SDR/boards/35]
+
+  Ús de 4 èpiques:
+    - INFRA: Èpica relacionada amb les tasques de desenvolupament de l'estructura i configuració inicial/base del projecte.
+    - CRYPTO: Èpica dedicada a ser el nucli del programa. Aqui es on es desenvolupa gran part de la logica del malware.
+    - RELEASE: Èpica centrada al desenvolupament de l'experiència d'usuari, aixi com el desenvolupament de la UI i altres.
+    - DOC: Èpica relacionada a documentar tots els arxius i coses relacionades amb la metodologia SCRUM. 
   
   REPOSITORI GIT HUB - GIT FLOW:  Hem separat estrictament el codi en dues branques:
   
@@ -28,6 +34,10 @@ Per a complir amb els requisits de l'activitat i, com que només hem sigut 2 els
   - Tasques actualitzades amb un identificador del taulell --> Actualitzacions de codi degudes a la finalització d'alguna tasca (SDR) plantejada al Taulell
 
 Repositori Git-Hub [https://github.com/martioliverlopez/Simulador-de-Ransomware]
+
+------------------------------
+GUIA D'INSTALACIÓ I EXECUCIÓ
+------------------------------
 
 
   
