@@ -84,11 +84,14 @@ Backlog inicial i final:
 <img width="752" height="393" alt="image" src="https://github.com/user-attachments/assets/60347b3d-1fd6-44aa-ad89-099a627aa3c1" />
 <img width="1629" height="741" alt="image" src="https://github.com/user-attachments/assets/92f1aa4a-707b-495d-a7c7-08252b3db6a0" />
 
+
 Dependències entre tasques:
 
 <img width="748" height="576" alt="image" src="https://github.com/user-attachments/assets/369d79c4-5ed0-4066-84a9-0ee3cb73b04d" />
 <img width="749" height="589" alt="image" src="https://github.com/user-attachments/assets/aa1c5ef8-908a-4485-93ad-da68e5f66b96" />
 
-Resum final JIRA:
+
+Diagrama de Gantt del projecte (Timeline de JIRA).:
+
 <img width="1661" height="871" alt="image" src="https://github.com/user-attachments/assets/45f72b77-9b62-43ad-beb7-08424c825a7e" />
 
