@@ -9,9 +9,9 @@ Aquest projecte desenvolupat entre desembre i gener ha estat dividit en 3 Sprint
 
 Sprint 1: Durant el primer sprint els 2 integrants de l'equip ens vam posar d'acord i vam organitzar, en termes generals, tota l'estructura del projecte, aixi com establir els nostres objectius, decidir el projecte i avançar en un desenvolupament precoç per a una versio Alpha. En aquest primer Sprint es van programar funcions bàsiques, aixi com una estructura solida dels arxius necessaris per a poder continuar amb efectivitat.
 
-Sprint 2: En aquest sprint es on vam fer el volum gran de feina de codi. Ens vam centrar en desenvolupar completament tot el programa, evitar i corretgir errors i, sobretot, garantir una bona comunicació entre nosaltres. Al final d'aquest sprint vam començar a implementar el Tkinter per a millorar la interfaç gràfica.
+Sprint 2: En aquest sprint es on vam fer el volum gran de feina de codi. Ens vam centrar en desenvolupar completament tot el programa, evitar i corretgir errors i, sobretot, garantir una bona comunicació entre nosaltres. Al final d'aquest sprint vam començar a implementar el Tkinter per a millorar la interfície gràfica.
 
-Sprint 3: En aquest ultim Sprint ens hem centrat en treure el codi endavant, cominicant-nos constantment per a garantir que el programa rutllés com volguessim. A més, hem desenvolupat quasi tota la interfaç gràfica aixi com el desenvolupament d'una ultima mecànica que no haviem previst fins ara. Finalment hem tancat amb totes les necessitats Scrum requerides per a entregar el treball en el millor estat possible.
+Sprint 3: En aquest ultim Sprint ens hem centrat en treure el codi endavant, cominicant-nos constantment per a garantir que el programa rutllés com volguessim. A més, hem desenvolupat quasi tota la interfície gràfica aixi com el desenvolupament d'una ultima mecànica que no haviem previst fins ara. Finalment hem tancat amb totes les necessitats Scrum requerides per a entregar el treball en el millor estat possible.
 
 Per a complir amb els requisits de l'activitat i, com que només hem sigut 2 els integrants del treball, hem utilitzat un flux de treball professional dividit en:
 
@@ -47,10 +47,6 @@ Requisits del sistema
 
 Instal·lació de Llibreries Externes. Cal instal·lar les següents:
 
-- Cryptography: És la llibreria principal que gestiona l'algoritme de xifratge simètric Fernet (AES-128). S'encarrega de la generació de claus i de la transformació dels fitxers. Cal executar la seguent comanda a la terminal del sistema:
-
-pip install cryptography
-
 - Pillow: Aquesta llibreria és necessària per al processament d'imatges. S'utilitza per carregar els logotips i icones de la interfície gràfica. Cal executar la seguent comanda a la terminal del sistema:
 
 pip install Pillow
@@ -70,7 +66,7 @@ Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfíci
   
       - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
       - SIMULAR PAGAMENT (BTC): Cal introduir les dades especificades en les instruccions de recuperació i clicar en "verificar"
-      - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau key.txt (generada durant la infecció) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
+      - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau de seguretat generada pel sistema (config_sys_04.dat) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
       - CONSULTAR LOGS: Es pot verificar i mirar tota la informació del que ha passat fins a aquest moment en aquest apartat.
       - TANCAR TERMINAL: Un cop finalitzat la simulació podrem utilitzar aquest botó per a tancar la terminal. Es desplegarà una ultima finestra que ens demanara una confirmació per a tancar el programa.
 
