@@ -69,7 +69,7 @@ Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfíci
   
   4- Un cop dintre ens transportarem a una altre pantalla amb les 5 funcionalitats del programa:
   
-      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge, mitjançant operacions bit a bit (XOR), buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
+      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge, mitjançant operacions bit a bit (XOR), buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta aquesta nota.
       - SIMULAR PAGAMENT (BTC): Cal introduir les dades especificades en les instruccions de recuperació i clicar en "verificar"
       - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau de seguretat generada pel sistema (config_sys_04.dat) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
       - CONSULTAR LOGS: Es pot verificar i mirar tota la informació del que ha passat fins a aquest moment en aquest apartat.
