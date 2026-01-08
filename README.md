@@ -39,5 +39,54 @@ Repositori Git-Hub [https://github.com/martioliverlopez/Simulador-de-Ransomware]
 GUIA D'INSTALACIÓ I EXECUCIÓ
 ------------------------------
 
+Per poder executar el simulador correctament, cal configurar l'entorn seguint aquests requeriments tècnics:
 
+Requisits del sistema
+  - Python: Versió 3.10 o superior.
+  - Sistema Operatiu: Compatible amb Windows, macOS i Linux (provat principalment en Windows).
+
+Instal·lació de Llibreries Externes. Cal instal·lar les següents:
+
+- Cryptography: És la llibreria principal que gestiona l'algoritme de xifratge simètric Fernet (AES-128). S'encarrega de la generació de claus i de la transformació dels fitxers. Cal executar la seguent comanda a la terminal del sistema:
+
+pip install cryptography
+
+- Pillow: Aquesta llibreria és necessària per al processament d'imatges. S'utilitza per carregar els logotips i icones de la interfície gràfica. Cal executar la seguent comanda a la terminal del sistema:
+
+pip install Pillow
+
+- Tkinter: És la llibreria que s'encarrega de la interfície visual. Generalment, ja ve inclosa amb la instal·lació estàndard de Python. Sinó, cal executar la següent comanda a la terminal del sistema:
+
+sudo apt-get install python3-tk
+
+Funcionament (Guia d'Usuari)
+
+Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfície gràfica. Per seguretat, el programa només actua sobre els fitxers situats a la carpeta específica de proves, anomenada "sandbox". Segueix aquests passos per realitzar una simulació segura:
+
+  1- Un cop descarregat el projecte, cal crear una carpeta anomenada "data" a la mateixa carpeta del projecte.
+  2- Dintre d'aquesta carpeta cal crear una subcarpeta anomenada "sandbox". Es aqui dintre on s'haura de posar tot el contingut que volguem xifrar o sobre el que        volguem fer les proves
+  3- Un cop creats aquests directoris ja només quedarà executar el programa. El fitxer principal a executar es "new_main.py", que obrirà la primera pantalla             introductoria del programa. Cal presionar la tecla (space) per a continuar.
+  4- Un cop dintre ens transportarem a una altre pantalla amb les 5 funcionalitats del programa:
   
+      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked.                                Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
+      - SIMULAR PAGAMENT (BTC): Cal introduir les dades especificades en les instruccions de recuperació i clicar en "verificar"
+      - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau                              key.txt (generada durant la infecció) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
+      - CONSULTAR LOGS: Es pot verificar i mirar tota la informació del que ha passat fins a aquest moment en aquest apartat.
+      - TANCAR TERMINAL: Un cop finalitzat la simulació podrem utilitzar aquest botó per a tancar la terminal. Es desplegarà una ultima finestra que ens demanara                            una confirmació per a tancar el programa.
+
+Advertència de Seguretat: Tot i que el programa té filtres per no sortir de la carpeta sandbox, es recomana no posar-hi fitxers originals importants del sistema  operatiu.
+
+--------------------------------------------------------------------------
+Captures del 3r sprint per a justificar un bon ús de la metodologia Scrum:
+--------------------------------------------------------------------------
+Backlog inicial i final:
+<img width="752" height="393" alt="image" src="https://github.com/user-attachments/assets/60347b3d-1fd6-44aa-ad89-099a627aa3c1" />
+<img width="1629" height="741" alt="image" src="https://github.com/user-attachments/assets/92f1aa4a-707b-495d-a7c7-08252b3db6a0" />
+
+Dependències entre tasques
+<img width="748" height="576" alt="image" src="https://github.com/user-attachments/assets/369d79c4-5ed0-4066-84a9-0ee3cb73b04d" />
+<img width="749" height="589" alt="image" src="https://github.com/user-attachments/assets/aa1c5ef8-908a-4485-93ad-da68e5f66b96" />
+
+Resum final JIRA:
+<img width="1661" height="871" alt="image" src="https://github.com/user-attachments/assets/45f72b77-9b62-43ad-beb7-08424c825a7e" />
+
