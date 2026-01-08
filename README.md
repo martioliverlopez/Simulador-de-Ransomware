@@ -1,17 +1,17 @@
 # Simulador de Ransomware - ENTI UB (Projecte Final) - Release Version
-Desenvolupat per Marti Oliver i Marc Fernández
+Desenvolupat per Martí Oliver i Marc Fernández
 
-Aquest projecte és un simulador educatiu de malware desenvolupat per a l'assignatura de Programació i Tecnologies de la Productivitat. L'objectiu és demostrar els mecanismes de xifratge simètric i la gestió de fitxers en un entorn controlat (sandbox), seguint metodologies àgils de desenvolupament. El programa desenvolupat simula un atac de ransomware on l'usuari estara obligat a passar per les fases que els atacants volen per a poder recuperar els seus arxius.
+Aquest projecte és un simulador educatiu de malware desenvolupat per a l'assignatura de Programació i Tecnologies de la Productivitat. L'objectiu és demostrar els mecanismes de xifratge simètric i la gestió de fitxers en un entorn controlat (sandbox), seguint metodologies àgils de desenvolupament. El programa desenvolupat simula un atac de ransomware on l'usuari estarà obligat a passar per les fases que els atacants volen per a poder recuperar els seus arxius.
 
 Gestió i evolució del Projecte:
 
 Aquest projecte desenvolupat entre desembre i gener ha estat dividit en 3 Sprints, sempre seguint la metodologia Scrum:
 
-Sprint 1: Durant el primer sprint els 2 integrants de l'equip ens vam posar d'acord i vam organitzar, en termes generals, tota l'estructura del projecte, aixi com establir els nostres objectius, decidir el projecte i avançar en un desenvolupament precoç per a una versio Alpha. En aquest primer Sprint es van programar funcions bàsiques, aixi com una estructura solida dels arxius necessaris per a poder continuar amb efectivitat.
+Sprint 1: Durant el primer sprint els 2 integrants de l'equip ens vam posar d'acord i vam organitzar, en termes generals, tota l'estructura del projecte, així com establir els nostres objectius, decidir el projecte i avançar en un desenvolupament precoç per a una versio Alpha. En aquest primer Sprint es van programar funcions bàsiques, així com una estructura sòlida dels arxius necessaris per a poder continuar amb efectivitat.
 
-Sprint 2: En aquest sprint es on vam fer el volum gran de feina de codi. Ens vam centrar en desenvolupar completament tot el programa, evitar i corretgir errors i, sobretot, garantir una bona comunicació entre nosaltres. Al final d'aquest sprint vam començar a implementar el Tkinter per a millorar la interfície gràfica.
+Sprint 2: En aquest sprint és on vam fer el volum gran de feina de codi. Ens vam centrar en desenvolupar completament tot el programa, evitar i corregir errors i, sobretot, garantir una bona comunicació entre nosaltres. Al final d'aquest sprint vam començar a implementar el Tkinter per a millorar la interfície gràfica.
 
-Sprint 3: En aquest ultim Sprint ens hem centrat en treure el codi endavant, cominicant-nos constantment per a garantir que el programa rutllés com volguessim. A més, hem desenvolupat quasi tota la interfície gràfica aixi com el desenvolupament d'una ultima mecànica que no haviem previst fins ara. Finalment hem tancat amb totes les necessitats Scrum requerides per a entregar el treball en el millor estat possible.
+Sprint 3: En aquest últim Sprint ens hem centrat en treure el codi endavant, comunicant-nos constantment per a garantir que el programa rutllés com volguessim. A més, hem desenvolupat quasi tota la interfície gràfica així com el desenvolupament d'una última mecànica que no havíem previst fins ara. Finalment, hem tancat amb totes les necessitats Scrum requerides per a entregar el treball en el millor estat possible.
 
 Per a complir amb els requisits de l'activitat i, com que només hem sigut 2 els integrants del treball, hem utilitzat un flux de treball professional dividit en:
 
@@ -20,8 +20,8 @@ Per a complir amb els requisits de l'activitat i, com que només hem sigut 2 els
 
   Ús de 4 èpiques:
     - INFRA: Èpica relacionada amb les tasques de desenvolupament de l'estructura i configuració inicial/base del projecte.
-    - CRYPTO: Èpica dedicada a ser el nucli del programa. Aqui es on es desenvolupa gran part de la logica del malware.
-    - RELEASE: Èpica centrada al desenvolupament de l'experiència d'usuari, aixi com el desenvolupament de la UI i altres.
+    - CRYPTO: Èpica dedicada a ser el nucli del programa. Aqui és on es desenvolupa gran part de la logica del malware.
+    - RELEASE: Èpica centrada al desenvolupament de l'experiència d'usuari, així com el desenvolupament de la UI i altres.
     - DOC: Èpica relacionada a documentar tots els arxius i coses relacionades amb la metodologia SCRUM. 
   
   REPOSITORI GIT HUB - GIT FLOW:  Hem separat estrictament el codi en dues branques:
@@ -47,11 +47,11 @@ Requisits del sistema
 
 Instal·lació de Llibreries Externes. Cal instal·lar les següents:
 
-- Pillow: Aquesta llibreria és necessària per al processament d'imatges. S'utilitza per carregar els logotips i icones de la interfície gràfica. Cal executar la seguent comanda a la terminal del sistema:
+- Pillow: Aquesta llibreria és necessària per al processament d'imatges. S'utilitza per carregar els logotips i icones de la interfície gràfica. Cal executar la següent comanda a la terminal del sistema:
 
 pip install Pillow
 
-- Tkinter: És la llibreria que s'encarrega de la interfície visual. Generalment, ja ve inclosa amb la instal·lació estàndard de Python. Sinó, cal executar la següent comanda a la terminal del sistema:
+- Tkinter: És la llibreria que s'encarrega de la interfície visual. Generalment, ja ve inclosa amb la instal·lació estàndard de Python. Si no, cal executar la següent comanda a la terminal del sistema:
 
 sudo apt-get install python3-tk
 
@@ -63,11 +63,11 @@ Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfíci
 
   1- Un cop descarregat el projecte, cal crear una carpeta anomenada "data" a la mateixa carpeta del projecte.
   
-  2- Dintre d'aquesta carpeta cal crear una subcarpeta anomenada "sandbox". Es aqui dintre on s'haura de posar tot el contingut que volguem xifrar o sobre el que        volguem fer les proves
+  2- Dintre d'aquesta carpeta cal crear una subcarpeta anomenada "sandbox". És aqui dintre on s'haurà de posar tot el contingut que vulguem xifrar o sobre el que vulguem fer les proves
   
-  3- Un cop creats aquests directoris ja només quedarà executar el programa. El fitxer principal a executar es "new_main.py", que obrirà la primera pantalla             introductoria del programa. Cal presionar la tecla (space) per a continuar.
+  3- Un cop creats aquests directoris ja només quedarà executar el programa. El fitxer principal a executar és "new_main.py", que obrirà la primera pantalla introductòria del programa. Cal pressionar la tecla (space) per a continuar.
   
-  4- Un cop dintre ens transportarem a una altre pantalla amb les 5 funcionalitats del programa:
+  4- Un cop dintre ens transportarem a una altra pantalla amb les 5 funcionalitats del programa:
   
       - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge, mitjançant operacions bit a bit (XOR), buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta aquesta nota.
       - SIMULAR PAGAMENT (BTC): Cal introduir les dades especificades en les instruccions de recuperació i clicar en "verificar"
