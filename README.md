@@ -55,7 +55,9 @@ pip install Pillow
 
 sudo apt-get install python3-tk
 
+------------------------------
 Funcionament (Guia d'Usuari)
+-------------------------------
 
 Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfície gràfica. Per seguretat, el programa només actua sobre els fitxers situats a la carpeta específica de proves, anomenada "sandbox". Segueix aquests passos per realitzar una simulació segura:
 
@@ -64,7 +66,7 @@ Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfíci
   3- Un cop creats aquests directoris ja només quedarà executar el programa. El fitxer principal a executar es "new_main.py", que obrirà la primera pantalla             introductoria del programa. Cal presionar la tecla (space) per a continuar.
   4- Un cop dintre ens transportarem a una altre pantalla amb les 5 funcionalitats del programa:
   
-      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
+      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge, mitjançant operacions bit a bit (XOR), buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
       - SIMULAR PAGAMENT (BTC): Cal introduir les dades especificades en les instruccions de recuperació i clicar en "verificar"
       - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau de seguretat generada pel sistema (config_sys_04.dat) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
       - CONSULTAR LOGS: Es pot verificar i mirar tota la informació del que ha passat fins a aquest moment en aquest apartat.
