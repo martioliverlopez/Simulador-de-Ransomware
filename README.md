@@ -62,8 +62,11 @@ Funcionament (Guia d'Usuari)
 Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfície gràfica. Per seguretat, el programa només actua sobre els fitxers situats a la carpeta específica de proves, anomenada "sandbox". Segueix aquests passos per realitzar una simulació segura:
 
   1- Un cop descarregat el projecte, cal crear una carpeta anomenada "data" a la mateixa carpeta del projecte.
+  
   2- Dintre d'aquesta carpeta cal crear una subcarpeta anomenada "sandbox". Es aqui dintre on s'haura de posar tot el contingut que volguem xifrar o sobre el que        volguem fer les proves
+  
   3- Un cop creats aquests directoris ja només quedarà executar el programa. El fitxer principal a executar es "new_main.py", que obrirà la primera pantalla             introductoria del programa. Cal presionar la tecla (space) per a continuar.
+  
   4- Un cop dintre ens transportarem a una altre pantalla amb les 5 funcionalitats del programa:
   
       - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge, mitjançant operacions bit a bit (XOR), buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
