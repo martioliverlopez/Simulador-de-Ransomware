@@ -68,11 +68,11 @@ Hem dissenyat aquest simulador per ser intuïtiu a través de la seva interfíci
   3- Un cop creats aquests directoris ja només quedarà executar el programa. El fitxer principal a executar es "new_main.py", que obrirà la primera pantalla             introductoria del programa. Cal presionar la tecla (space) per a continuar.
   4- Un cop dintre ens transportarem a una altre pantalla amb les 5 funcionalitats del programa:
   
-      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked.                                Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
+      - EXECUTAR INFECCIÓ: En clicar aquest botó, el motor de xifratge buscarà tots els fitxers a la /sandbox, els xifrarà i els canviarà l'extensió a .locked. Això generarà automàticament es un fitxer INSTRUCCIONS_RECUPERACIO.txt dintre de la Sandbox. Caldrà seguir els passos que ens dicta                                 aquesta nota.
       - SIMULAR PAGAMENT (BTC): Cal introduir les dades especificades en les instruccions de recuperació i clicar en "verificar"
-      - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau                              key.txt (generada durant la infecció) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
+      - RECUPERAR DADES: Un cop simulat el pagament nomes caldrà clicar en aquesta funcionalitat per a recuperar els documents. Aquesta part utilitzarà la clau key.txt (generada durant la infecció) per retornar els fitxers al seu estat original i eliminar l'extensió .locked
       - CONSULTAR LOGS: Es pot verificar i mirar tota la informació del que ha passat fins a aquest moment en aquest apartat.
-      - TANCAR TERMINAL: Un cop finalitzat la simulació podrem utilitzar aquest botó per a tancar la terminal. Es desplegarà una ultima finestra que ens demanara                            una confirmació per a tancar el programa.
+      - TANCAR TERMINAL: Un cop finalitzat la simulació podrem utilitzar aquest botó per a tancar la terminal. Es desplegarà una ultima finestra que ens demanara una confirmació per a tancar el programa.
 
 Advertència de Seguretat: Tot i que el programa té filtres per no sortir de la carpeta sandbox, es recomana no posar-hi fitxers originals importants del sistema  operatiu.
 
@@ -80,10 +80,12 @@ Advertència de Seguretat: Tot i que el programa té filtres per no sortir de la
 Captures del 3r sprint per a justificar un bon ús de la metodologia Scrum:
 --------------------------------------------------------------------------
 Backlog inicial i final:
+
 <img width="752" height="393" alt="image" src="https://github.com/user-attachments/assets/60347b3d-1fd6-44aa-ad89-099a627aa3c1" />
 <img width="1629" height="741" alt="image" src="https://github.com/user-attachments/assets/92f1aa4a-707b-495d-a7c7-08252b3db6a0" />
 
-Dependències entre tasques
+Dependències entre tasques:
+
 <img width="748" height="576" alt="image" src="https://github.com/user-attachments/assets/369d79c4-5ed0-4066-84a9-0ee3cb73b04d" />
 <img width="749" height="589" alt="image" src="https://github.com/user-attachments/assets/aa1c5ef8-908a-4485-93ad-da68e5f66b96" />
 
