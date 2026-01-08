@@ -87,6 +87,7 @@ Backlog inicial i final:
 
 Diagrama de Gantt del projecte (Timeline de JIRA):
 
+<img width="1534" height="389" alt="image" src="https://github.com/user-attachments/assets/5f2d7926-751e-4f81-aaa0-b8bec6175892" />
 <img width="1664" height="897" alt="image" src="https://github.com/user-attachments/assets/985401ba-bb1e-41ee-a25d-1fda5c72c57d" />
 <img width="1663" height="800" alt="image" src="https://github.com/user-attachments/assets/b9e31fa7-4c0a-4a40-8eae-816ef3c1628a" />
 
